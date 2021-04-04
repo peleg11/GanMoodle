@@ -9,10 +9,14 @@ pipeline {
         }
         stage('setup'){
           steps{
+            withPythonEnv('python') {
+              // Uses the default system installation of Python
+              // Equivalent to withPythonEnv('/usr/bin/python')
             dir('jenkins'){
             sh 'python -m pip install -r requirements.txt'
             }
-            sh 'echo hello'
+            echo 'hello'
+          }
           }
         }
     }
