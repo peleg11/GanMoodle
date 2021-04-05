@@ -28,9 +28,11 @@ pipeline {
             dir("ganMoodle_project") {
               withEnv(["HOME=${env.WORKSPACE}"]) {
                 sh "python -m coverage run manage.py test --tag=unit-test"
+
               }
             }
           }
             }
     }
+    
 }

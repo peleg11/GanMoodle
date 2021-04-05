@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 
-
+@tag('unit-test')
 class TestAdminPanel(TestCase):
     def create_user(self):
         self.username = "test_admin"
