@@ -46,7 +46,7 @@ class UrlsTest(TestCase):
         #Assert
         self.assertEqual(resolve(url).func, index)
 
-
+@tag('unit-test')
 class SigninTest(TestCase):
 
     def setUp(self):
