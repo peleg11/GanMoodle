@@ -25,9 +25,10 @@ pipeline {
 
           stage('Run Unit Tests') {
                 steps {
-            dir("GanMoodle") {
+            dir("./") {
               withEnv(["HOME=${env.WORKSPACE}"]) {
-                sh "python -m coverage run ./manage.py test --tag=unit-test"
+                sh "pwd"
+                sh "python -m coverage run manage.py test --tag=unit-test"
 
               }
             }
