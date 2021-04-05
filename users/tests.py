@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+from django.test import TestCase, Client, tag
 from django.contrib.auth.models import User
 
 @tag('unit-test')
