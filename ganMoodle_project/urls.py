@@ -20,5 +20,5 @@ from users import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index,name='homepage'),
-    path('regpage.html',views.regpage),
+    path('regpage.html',views.regpage,),
 ]

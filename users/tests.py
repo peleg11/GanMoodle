@@ -1,5 +1,6 @@
 from django.test import TestCase, Client, tag
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model,authenticate
 
 @tag('unit-test')
 class TestAdminPanel(TestCase):
@@ -32,3 +33,37 @@ class TestAdminPanel(TestCase):
             resp = client.get(page)
             assert resp.status_code == 200
             #assert "<!DOCTYPE html" in resp.content
+
+from django.test import TestCase, tag
+from django.urls import resolve, reverse
+from users.views import index, regpage
+
+@tag('unit-test')
+class UrlsTest(TestCase):
+    def test_sign_up_url_resolved(self):
+        #Act
+        url = reverse('homepage')
+        #Assert
+        self.assertEqual(resolve(url).func, index)
+
+
+class SigninTest(TestCase):
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(username='test', password='12test12', email='test@example.com')
+        self.user.save()
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_correct(self):
+        user = authenticate(username='test', password='12test12')
+        self.assertTrue((user is not None) and user.is_authenticated)
+
+    def test_wrong_username(self):
+        user = authenticate(username='wrong', password='12test12')
+        self.assertFalse(user is not None and user.is_authenticated)
+
+    def test_wrong_pssword(self):
+        user = authenticate(username='test', password='wrong')
+        self.assertFalse(user is not None and user.is_authenticated)
