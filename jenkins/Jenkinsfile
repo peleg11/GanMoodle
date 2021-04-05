@@ -1,5 +1,9 @@
 pipeline {
     agent { docker { image 'python:3.8-buster' } }
+    triggers {
+      githubPush()
+  }
+
     stages {
         stage('Build') {
             steps {
@@ -18,5 +22,15 @@ pipeline {
           }
           }
         }
+
+          stage('Run Unit Tests') {
+                steps {
+            dir("ganMoodle_project") {
+              withEnv(["HOME=${env.WORKSPACE}"]) {
+                sh "python -m coverage run manage.py test --tag=unit-test"
+              }
+            }
+          }
+            }
     }
 }

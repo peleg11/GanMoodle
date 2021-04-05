@@ -18,4 +18,13 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< Updated upstream
+=======
+    path('',views.index,name='homepage'),
+    path('regpage.html',views.regpage),
+    ##path(r'^$',views.index,name='homepage'),
+
+
+
+>>>>>>> Stashed changes
 ]
