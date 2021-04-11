@@ -24,15 +24,15 @@ def register(request):
     return render(request, '../templates/register.html')
 
 
-def manager_register (request):
-    if request.method == 'POST':
-        form = ManagerForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('homepage')
-    else :
-        form=ManagerForm()
-    return render(request,'../templates/manager_register.html',{'form':form})
+#def manager_register (request):
+#    if request.method == 'POST':
+#        form = ManagerForm(request.POST)
+#        if form.is_valid():
+#            form.save()
+#            return redirect('homepage')
+#    else :
+#        form=ManagerForm()
+#    return render(request,'../templates/manager_register.html',{'form':form})
 
 class parent_register(CreateView):
     model = User
@@ -44,7 +44,7 @@ class parent_register(CreateView):
         #login(self.request, user)
         return redirect('homepage')
 
-'''class manager_register(CreateView):
+class manager_register(CreateView):
     model = User
     form_class = ManagerForm
     template_name = '../templates/manager_register.html'
@@ -53,7 +53,7 @@ class parent_register(CreateView):
         user = form.save()
         #login(self.request, user)
         return redirect('homepage')
-'''
+
 
 def login_request(request):
     if request.method=='POST':
