@@ -19,12 +19,7 @@ from users import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 =======
-=======
->>>>>>> Stashed changes
 =======
 >>>>>>> e74298100e3a6f514f0d0fca6437467cc0273ee1
     path('',views.index,name='homepage'),
