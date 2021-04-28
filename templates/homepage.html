@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Bootstrap Project</title>
+    <title>Kinder Project</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -22,15 +22,23 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">GanMoodle</a>
+      <a class="navbar-brand" href="{% url 'homepage' %}">GanMoodle</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-
-         <li><a href="regpage.html">Sign up </a></li>
-         <li ><a >Sign in</a></li>
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-outline-primary" href="{% url 'profile' %}">{{user.username|title}}</a>
+          </li>
+        {% else %}
+        <li><a href="{% url 'register' %}">Sign up </a></li>
+        <li ><a  href="{% url 'login' %}">Sign in</a></li>
+        {% endif %}
 
       </ul>
 
