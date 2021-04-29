@@ -16,12 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from users import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-=======
-=======
->>>>>>> e74298100e3a6f514f0d0fca6437467cc0273ee1
     path('',views.index,name='homepage'),
-    path('regpage.html',views.regpage),
-]
+    path('users/',include('users.urls')),
+    path('media/profilepics/',admin.site.urls)
+    #path('regpage.html',views.regpage, name='regpage'),
+]+static (settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
