@@ -2,9 +2,9 @@ from django.contrib.auth import login, logout,authenticate
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.views.generic import CreateView
-from .forms import ManagerForm, ParentForm,EditProfileForm
+from .forms import ManagerForm, ParentForm,EditProfileForm,contactForm
 from django.contrib.auth.forms import AuthenticationForm
-from .models import User
+from .models import User,contact_model
 
 # Create your views here.
 def index (request):
@@ -94,3 +94,14 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+def contact_info_view(request):
+        data = contact_model.objects.all()
+        if request.method == 'POST':
+            form = contactForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('contact')
+        else :
+            form=contactForm(request.POST)
+        return render(request,'contact.html',{'form':form,'data':data})

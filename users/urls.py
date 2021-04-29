@@ -10,8 +10,9 @@ urlpatterns=[
      path('edit_profile/',views.edit_profile, name='edit_profile'),
      path('manager_register/',views.manager_register, name='manager_register'),
      path('login/',views.login_view, name='login'),
-     path('/profile/',views.profile, name='profile'),
+     path('profile/',views.profile, name='profile'),
      path('logout/',views.logout_view, name='logout'),
+     path('contact/',views.contact_info_view, name='contact'),
 
 
 ] +static (settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
