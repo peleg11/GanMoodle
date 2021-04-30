@@ -41,21 +41,6 @@
 </nav>
 
 
-<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-  <ul class="nav navbar-nav">
-    {% if user.is_authenticated %}
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-      </li>
-      <li class="nav-item">
-        <a class="btn btn-outline-primary" href="{% url 'profile' %}">{{user.username|title}}</a>
-      </li>
-    {% else %}
-    <li><a href="{% url 'register' %}">Sign up </a></li>
-    <li ><a  href="{% url 'login' %}">Sign in</a></li>
-    {% endif %}
-
-  </ul>
 
 
   </div><!-- /.navbar-collapse -->
@@ -63,7 +48,7 @@
 
 </nav>
 <div class="flex_c">
-
+{% if user.is_manager %}
             <section>
                 <div class="container">
                   <div class="row">
@@ -94,7 +79,7 @@
                       </div>
                     </div>
 
-              </section>
+              </section>{% endif %}
 
               <table>
                 <tr>
@@ -109,7 +94,10 @@
                   <td>{{ contact.child_name }}</td>
                   <td>{{ contact.phone_number }}</td>
                   <td>{{ contact.email }}</td>
-                  <td><input type="submit" name="delete_button" value="Delete"></td>
+
+                    {% if user.is_manager %}
+                  <td><a href="delete_contact/{{ contact.parent_name }}/"><input class="btn btn-danger" type="submit" value="Delete"></a></td>
+                  {% endif %}
                 </tr>
                 {% endfor %}
               </table>

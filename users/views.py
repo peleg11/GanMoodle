@@ -105,3 +105,10 @@ def contact_info_view(request):
         else :
             form=contactForm(request.POST)
         return render(request,'contact.html',{'form':form,'data':data})
+
+def delete_contact_view(request,parent_name):
+    obj = contact_model.objects.get(parent_name=parent_name)
+    if request.method == 'POST':
+        obj.delete()
+        return redirect('../../')
+    return render(request,'delete_contact.html',context={'obj':obj})
