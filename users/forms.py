@@ -52,7 +52,7 @@ class ParentForm(UserCreationForm):
         class Meta:
             model=User
             fields=('first_name','last_name','username','email', 'phone_number',
-                    'profile_pic','child_id','password1','password2')
+                    'profile_pic','child_id','password1','password2','gangroups')
 
         #@transaction.atomic
         def save(self):

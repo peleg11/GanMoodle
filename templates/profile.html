@@ -40,25 +40,6 @@
 
 </nav>
 
-<!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-  <ul class="nav navbar-nav">
-    {% if user.is_authenticated %}
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-      </li>
-      <li class="nav-item">
-        <a class="btn btn-outline-primary" href="{% url 'profile' %}">{{user.username|title}}</a>
-      </li>
-    {% else %}
-    <li><a href="{% url 'register' %}">Sign up </a></li>
-    <li ><a  href="{% url 'login' %}">Sign in</a></li>
-    {% endif %}
-
-  </ul>
-
-
-  </div><!-- /.navbar-collapse -->
-<!-- /.container-fluid -->
 
 
 
@@ -83,7 +64,7 @@
 
           <p style="text-align: center">Add parent <a href="{% url 'parent_register' %}">ADD</a> </p>
           <p style="text-align: center"> <a href="{% url 'support_page' %}">Support</a> </p>
-
+          <p style="text-align: center;">{{ user.gangroups.name }}</p>
             {% endif %}
 
 
