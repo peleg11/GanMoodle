@@ -1,0 +1,73 @@
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="cssHelper">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+<!-- Brand and toggle get grouped for better mobile display -->
+<div class="navbar-header">
+  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <a class="navbar-brand" href="{% url 'homepage' %}">GanMoodle</a>
+</div>
+
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+  <ul class="nav navbar-nav">
+    {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-outline-primary" href="{% url 'profile' %}">{{user.username|title}}</a>
+      </li>
+    {% else %}
+    <li><a href="{% url 'register' %}">Sign up </a></li>
+    <li ><a  href="{% url 'login' %}">Sign in</a></li>
+    {% endif %}
+
+
+
+
+  </ul>
+
+
+  </div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+
+</nav>
+<style>
+
+
+h3 {
+  color: black;
+  text-align: center;
+}
+
+p {
+  font-family: verdana;
+  font-size: 20px;
+  text-align: center;
+}
+</style>
+
+
+  <h3>Your question</h3>
+
+  <p>Your Answer</p>
+
+  <h3>Your another Question</h3>
+
+  <p>Your answer</p>
+
+  <h3>Your another Question</h3>
+
+  <p>Your answer</p>
+
+</div>
+
+<h4 style="text-align: center; color: blue; ">If have another questions you can send mail to admin:admin@admin.com</h4>
