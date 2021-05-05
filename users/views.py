@@ -116,3 +116,7 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+def support_page(request):
+
+    return render(request,"../templates/support_page.html")
