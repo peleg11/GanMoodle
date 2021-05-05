@@ -74,7 +74,8 @@ class contactTest(TestCase):
 
     def setUp(self):
         self.contact = contact_model.objects.create(parent_name='parent',
-                                    child_name='child',parent_name='1234567890',email="test@gmail.com")
+                                    child_name='child',phone_number=1234567890,
+                                    email="test@gmail.com")
         self.contact.save()
     
     def tearDown(self):
