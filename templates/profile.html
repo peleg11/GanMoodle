@@ -65,8 +65,14 @@
           <p style="text-align: center">Add parent <a href="{% url 'parent_register' %}">ADD</a> </p>
           <p style="text-align: center"> <a href="{% url 'support_page' %}">Support</a> </p>
           <p style="text-align: center;">{{ user.gangroups.name }}</p>
+
+          <p>Add parent <a href="{% url 'parent_register' %}">edit button</a> below.</p>
+
+
+
             {% endif %}
 
+            <p>contact information <a href="{% url 'contact' %}">contact</a></p>
 
 
 

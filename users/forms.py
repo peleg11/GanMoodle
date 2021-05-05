@@ -2,7 +2,9 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.db import transaction
-from .models import User,Manager,Parent,GanGroup
+from .models import User,Manager,Parent,contact_model,GanGroup
+from django.forms import ModelForm
+
 
 class ManagerForm(UserCreationForm):
     first_name=forms.CharField(required=True)
@@ -79,3 +81,8 @@ class EditProfileForm(UserChangeForm ):
         model = User
         fields = ('first_name','last_name', 'phone_number','profile_pic')
         #exclude = ('user',)
+
+class contactForm(ModelForm):
+    class Meta:
+        model = contact_model
+        fields = ('parent_name','child_name','phone_number','email')

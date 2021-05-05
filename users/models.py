@@ -32,6 +32,23 @@ class Manager(models.Model):
 class Parent(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
     child_id = models.CharField(max_length=9)
+<<<<<<< HEAD
+=======
+
+
+class contact_model(models.Model):
+    parent_name = models.CharField(max_length=100,blank=False)
+    child_name = models.CharField(max_length=100,blank=False)
+    phone_number = models.IntegerField(blank=True,null=True)
+    email = models.EmailField()
+
+class GanGroup(models.Model):
+    member=models.ManyToManyField(User)
+    name = models.CharField(max_length=128)
+
+    class Meta:
+        ordering = ['name']
+>>>>>>> cffaa68e2e209ee6f8350031d4cca03ff665847d
 
     def __str__(self):
         return self.user.username
