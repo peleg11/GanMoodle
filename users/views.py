@@ -4,9 +4,9 @@ from django.contrib import messages
 from django.views.generic import CreateView
 
 
-from .forms import ManagerForm, ParentForm,EditProfileForm
+from .forms import ManagerForm, ParentForm,EditProfileForm,contactForm
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
-from .models import User
+from .models import User,contact_model
 
 # Create your views here.
 def index (request):
