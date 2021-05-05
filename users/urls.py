@@ -14,6 +14,8 @@ urlpatterns=[
      path('logout/',views.logout_view, name='logout'),
      path('contact/',views.contact_info_view, name='contact'),
      path('contact/delete_contact/<str:parent_name>/',views.delete_contact_view, name='delete_contact'),
+     path('change_password/', views.change_password, name='change_password'),
+
 
 
 ] +static (settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
