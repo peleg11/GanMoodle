@@ -92,9 +92,10 @@ def edit_profile (request):
 
 
 def profile(request):
-	user_form = request.user
-	#profile_form = ProfileForm(instance=request.user.profile)
-	return render(request,"../templates/profile.html", context={'user':user_form})
+    user_form=request.user
+    x=request.user.gangroups.all()
+    return render(request,"../templates/profile.html", context={'user':user_form,'gangroups':x})
+
 
 
 def login_view(request):

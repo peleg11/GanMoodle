@@ -47,32 +47,37 @@
 
     <div class="grid-25 center" >
       {% if request.user.profile_pic %}
-      <img class="center" src="{{ request.user.profile_pic.url }}" width="256" >
+      <img class="center" src="{{ request.user.profile_pic.url }}" width="256" style="text-align: center;" >
       {%endif%}
     </div>
     <div class="grid-65">
         <h1 style="text-align: center;">Your Profile</h1>
-        <h2 style="text-align: center;">First Name</h2>
+        <h3 style="text-align: center;">First Name</h3>
         <p style="text-align: center;">{{ user.first_name|lower|capfirst }}</p>
-        <h2 style="text-align: center;">Last Name</h2>
+        <h3 style="text-align: center;">Last Name</h3>
         <p style="text-align: center;">{{ user.last_name|lower|capfirst }}</p>
-        <h2 style="text-align: center;">Email</h2>
+        <h3 style="text-align: center;">Email</h3>
         <p style="text-align: center;">{{ user.email }}</p>
-        <p style="text-align: center;"><a href="{% url 'edit_profile' %}">edit your profile</a> </p>
-        <p style="text-align: center;"><a href="{% url 'change_password' %}">Change Password</a> </p>
+        {% for g in gangroups %}
+        <h3 style="text-align: center;">My Group</h3>
+        <p style="text-align: center;">{{ g }}</p>
+          {% endfor %}
           {% if user.is_manager %}
 
+
+
+            <br>
+            <br>
           <p style="text-align: center">Add parent <a href="{% url 'parent_register' %}">ADD</a> </p>
           <p style="text-align: center"> <a href="{% url 'support_page' %}">Support</a> </p>
-          <p style="text-align: center;">{{ user.gangroups.name }}</p>
-
-          <p>Add parent <a href="{% url 'parent_register' %}">edit button</a> below.</p>
-
-
 
             {% endif %}
+            <br>
+            <br>
+            <p style="text-align: center;"><a href="{% url 'edit_profile' %}">edit your profile</a> </p>
+            <p style="text-align: center;"><a href="{% url 'change_password' %}">Change Password</a> </p>
 
-            <p>contact information <a href="{% url 'contact' %}">contact</a></p>
+            <p style="text-align: center;">contact information <a href="{% url 'contact' %}">contact</a></p>
 
 
 
