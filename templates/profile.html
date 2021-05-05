@@ -40,7 +40,7 @@
 
 </nav>
 
-<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
     {% if user.is_authenticated %}
       <li class="nav-item">
@@ -58,15 +58,15 @@
 
 
   </div><!-- /.navbar-collapse -->
-</div><!-- /.container-fluid -->
+<!-- /.container-fluid -->
 
-</nav>
+
 
 
 
     <div class="grid-25 center" >
       {% if request.user.profile_pic %}
-      <img class="center" src="{{ request.user.profile_pic.url }}" width="256" class="center">
+      <img class="center" src="{{ request.user.profile_pic.url }}" width="256" >
       {%endif%}
     </div>
     <div class="grid-65">
@@ -77,11 +77,13 @@
         <p style="text-align: center;">{{ user.last_name|lower|capfirst }}</p>
         <h2 style="text-align: center;">Email</h2>
         <p style="text-align: center;">{{ user.email }}</p>
-        <p><a href="{% url 'edit_profile' %}">edit your profile</a> </p>
-        <p><a href="{% url 'change_password' %}">Change Password</a> </p>
+        <p style="text-align: center;"><a href="{% url 'edit_profile' %}">edit your profile</a> </p>
+        <p style="text-align: center;"><a href="{% url 'change_password' %}">Change Password</a> </p>
           {% if user.is_manager %}
 
-          <p>Add parent <a href="{% url 'parent_register' %}">Here</a> </p>
+          <p style="text-align: center">Add parent <a href="{% url 'parent_register' %}">ADD</a> </p>
+          <p style="text-align: center"> <a href="{% url 'parent_register' %}">Support</a> </p>
+
             {% endif %}
 
 
