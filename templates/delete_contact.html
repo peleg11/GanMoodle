@@ -1,9 +1,9 @@
-
+{% load widget_tweaks %}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel="stylesheet" href="cssHelper">
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
-<!-- Brand and toggle get grouped for better mobile display -->
+Brand and toggle get grouped for better mobile display
 <div class="navbar-header">
   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
     <span class="sr-only">Toggle navigation</span>
@@ -14,7 +14,7 @@
   <a class="navbar-brand" href="{% url 'homepage' %}">GanMoodle</a>
 </div>
 
-<!-- Collect the nav links, forms, and other content for toggling -->
+Collect the nav links, forms, and other content for toggling
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
     {% if user.is_authenticated %}
@@ -40,6 +40,7 @@
 
 </nav>
 
+
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
     {% if user.is_authenticated %}
@@ -64,36 +65,26 @@
 
 
 
-    <div class="grid-25 center" >
-      {% if request.user.profile_pic %}
-      <img class="center" src="{{ request.user.profile_pic.url }}" width="256" class="center">
-      {%endif%}
-    </div>
-    <div class="grid-65">
-        <h1 style="text-align: center;">Your Profile</h1>
-        <h2 style="text-align: center;">First Name</h2>
-        <p style="text-align: center;">{{ user.first_name|lower|capfirst }}</p>
-        <h2 style="text-align: center;">Last Name</h2>
-        <p style="text-align: center;">{{ user.last_name|lower|capfirst }}</p>
-        <h2 style="text-align: center;">Email</h2>
-        <p style="text-align: center;">{{ user.email }}</p>
-        <p><a href="{% url 'edit_profile' %}">edit your profile</a> </p>
-        <p><a href="{% url 'change_password' %}">Change Password</a> </p>
-          {% if user.is_manager %}
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-header text-black">
 
-          <p>Add parent <a href="{% url 'parent_register' %}">edit button</a> below.</p>
+          </div>
+          <div class="card-body">
+            <form class="" action="." method="POST">
+              {% csrf_token %}
+              <h1>Do you want to delete the contact info?</h1>
+              <p><input class="btn btn-danger" type="submit" value="Yes" /><a href="{% url 'contact' %}" >cancel</p>
+            </form> 
 
+           </div>
+              </div>
 
-            {% endif %}
+          </div>
+        </div>
+      </div>
 
-            <p>contact information <a href="{% url 'contact' %}">contact</a></p>
-
-
-
-
-
-
-
-
-
-    </div>
+</section>
