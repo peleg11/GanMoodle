@@ -15,6 +15,7 @@ urlpatterns=[
      path('contact/',views.contact_info_view, name='contact'),
      path('contact/delete_contact/<int:pk>/',views.delete_contact_view, name='delete_contact'),
      path('change_password/', views.change_password, name='change_password'),
+     path('support_page/', views.support_page, name='support_page'),
 
 
 
