@@ -28,7 +28,7 @@ class Parent(models.Model):
 class contact_model(models.Model):
     parent_name = models.CharField(max_length=100,blank=False)
     child_name = models.CharField(max_length=100,blank=False)
-    phone_number = models.IntegerField(blank=True,null=True)
+    phone_number = models.CharField(max_length=10,blank=True,null=True)
     email = models.EmailField()
 
 class GanGroup(models.Model):

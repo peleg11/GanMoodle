@@ -96,7 +96,7 @@
                   <td>{{ contact.email }}</td>
 
                     {% if user.is_manager %}
-                  <td><a href="delete_contact/{{ contact.parent_name }}/"><input class="btn btn-danger" type="submit" value="Delete"></a></td>
+                  <td><a href="delete_contact/{{ contact.pk }}/"><input class="btn btn-danger" type="submit" value="Delete"></a></td>
                   {% endif %}
                 </tr>
                 {% endfor %}
