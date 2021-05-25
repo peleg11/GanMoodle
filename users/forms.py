@@ -2,7 +2,9 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.db import transaction
-from .models import User,Manager,Parent,GanGroup
+from .models import User,Manager,Parent,contact_model,GanGroup
+from django.forms import ModelForm
+
 
 class ManagerForm(UserCreationForm):
     first_name=forms.CharField(required=True)
@@ -43,27 +45,32 @@ class ManagerForm(UserCreationForm):
 class ParentForm(UserCreationForm):
         first_name=forms.CharField(required=True)
         last_name=forms.CharField(required=True)
-        #email=forms.EmailField(required=True)
         phone_number = forms.CharField(required=True)
-        #groups =forms.CharField(required=True)
         profile_pic = forms.ImageField(required=False)
         child_id=forms.CharField()
 
         class Meta:
             model=User
+            model1=GanGroup
             fields=('first_name','last_name','username','email', 'phone_number',
-                    'profile_pic','child_id','password1','password2')
+                    'profile_pic','child_id','password1','password2','gangroups')
 
         #@transaction.atomic
         def save(self):
             user = super().save(commit=False)
+            gangroups=self.cleaned_data.get('gangroups')
+            print(gangroups[0])
+            #a=gangroups.tolist()
+            #print(a)
+            group = GanGroup.objects.get(name='First')
+
             user.is_parent = True
             user.first_name = self.cleaned_data.get('first_name')
             user.last_name = self.cleaned_data.get('last_name')
             user.phone_number=self.cleaned_data.get('phone_number')
-            #user.groups=self.cleaned_data.get('group')
             profile_pic=self.cleaned_data.get('profile_pic')
             user.save()
+            user.gangroups.add(gangroups[0])
             parent = Parent.objects.create(user=user)
             parent.child_id=self.cleaned_data.get('child_id')
             parent.save()
@@ -79,3 +86,8 @@ class EditProfileForm(UserChangeForm ):
         model = User
         fields = ('first_name','last_name', 'phone_number','profile_pic')
         #exclude = ('user',)
+
+class contactForm(ModelForm):
+    class Meta:
+        model = contact_model
+        fields = ('parent_name','child_name','phone_number','email')

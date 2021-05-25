@@ -1,6 +1,7 @@
 from django.test import TestCase, Client, tag
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model,authenticate
+from .models import contact_model
 
 @tag('unit-test')
 class TestAdminPanel(TestCase):
@@ -67,3 +68,19 @@ class SigninTest(TestCase):
     def test_wrong_pssword(self):
         user = authenticate(username='test', password='wrong')
         self.assertFalse(user is not None and user.is_authenticated)
+
+@tag('unit-test')
+class contactTest(TestCase):
+
+    def setUp(self):
+        self.contact = contact_model.objects.create(parent_name='parent',
+                                    child_name='child',phone_number=1234567890,
+                                    email="test@gmail.com")
+        self.contact.save()
+    
+    def tearDown(self):
+        self.contact.delete()
+    
+    def test_exists(self):
+        obj = contact_model.objects.get(parent_name='parent')
+        self.assertTrue(self.contact is not None)
