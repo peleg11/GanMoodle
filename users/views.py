@@ -2,9 +2,9 @@ from django.contrib.auth import login, logout,authenticate
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.views.generic import CreateView
+from django.core.mail import send_mail
 
-
-from .forms import ManagerForm, ParentForm,EditProfileForm,contactForm
+from .forms import ManagerForm, ParentForm,EditProfileForm,contactForm,supportMailForm
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 from .models import User,contact_model
 
@@ -122,8 +122,23 @@ def logout_view(request):
 
 
 def support_page(request):
-
-    return render(request,"../templates/support_page.html")
+    form = supportMailForm()
+    if request.method == 'POST':
+        form = supportMailForm(request.POST)
+        if form.is_valid:
+            firstName = request.user.first_name
+            lastName = request.user.last_name
+            group = request.user.gangroups.name
+            subject = request.POST['subject']
+            message = request.POST['message']
+            if (request.user.is_manager):
+                recipient = ['admin_gan@gmail.com']
+            elif (request.user.is_parent):
+                recipient = ['manager_mail@gmail.com'] #TODO get specific manager mail for group
+            send_mail(subject,message,from_email=firstName+""+lastName,recipient_list=recipient)
+            return render(request,"../templates/support_page.html",{"first_name":firstName})
+    else:
+        return render(request,"../templates/support_page.html",{"form":form})
 
 def contact_info_view(request):
         data = contact_model.objects.all()

@@ -48,11 +48,12 @@ h3 {
   text-align: center;
 }
 
-p {
+p,button {
   font-family: verdana;
   font-size: 20px;
   text-align: center;
 }
+
 </style>
 
 
@@ -71,3 +72,15 @@ p {
 </div>
 
 <h4 style="text-align: center; color: blue; ">If have another questions you can send mail to admin:admin@admin.com</h4>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="form-actions">
+      <button type="submit">Send</button>
+    </div>
+    {% if first_name %}
+    <h2> email sent, thank you {{first_name}}  </h2>
+    
+    {% endif %}
+</form>

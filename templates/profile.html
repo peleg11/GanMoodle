@@ -62,6 +62,8 @@
         <h3 style="text-align: center;">My Group</h3>
         <p style="text-align: center;">{{ g }}</p>
           {% endfor %}
+          <p style="text-align: center"> <a href="{% url 'support_page' %}">Support</a> </p>
+
           {% if user.is_manager %}
 
 
@@ -69,7 +71,6 @@
             <br>
             <br>
           <p style="text-align: center">Add parent <a href="{% url 'parent_register' %}">ADD</a> </p>
-          <p style="text-align: center"> <a href="{% url 'support_page' %}">Support</a> </p>
 
             {% endif %}
             <br>
