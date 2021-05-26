@@ -84,3 +84,4 @@ class contactTest(TestCase):
     def test_exists(self):
         obj = contact_model.objects.get(parent_name='parent')
         self.assertTrue(self.contact is not None)
+

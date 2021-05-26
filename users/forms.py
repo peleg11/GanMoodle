@@ -62,7 +62,7 @@ class ParentForm(UserCreationForm):
             print(gangroups[0])
             #a=gangroups.tolist()
             #print(a)
-            group = GanGroup.objects.get(name='First')
+            # group = GanGroup.objects.get(name='First')
 
             user.is_parent = True
             user.first_name = self.cleaned_data.get('first_name')
@@ -91,3 +91,7 @@ class contactForm(ModelForm):
     class Meta:
         model = contact_model
         fields = ('parent_name','child_name','phone_number','email')
+
+class supportMailForm(forms.Form):
+    subject = forms.CharField(required=True)
+    message = forms.CharField(widget=forms.Textarea, required=True)

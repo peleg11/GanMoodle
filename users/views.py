@@ -2,11 +2,11 @@ from django.contrib.auth import login, logout,authenticate
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.views.generic import CreateView
+from django.core.mail import send_mail
 
-
-from .forms import ManagerForm, ParentForm,EditProfileForm,contactForm
+from .forms import ManagerForm, ParentForm,EditProfileForm,contactForm,supportMailForm
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
-from .models import User,contact_model
+from .models import GanGroup, User,contact_model
 
 # Create your views here.
 def index (request):
@@ -122,8 +122,25 @@ def logout_view(request):
 
 
 def support_page(request):
-
-    return render(request,"../templates/support_page.html")
+    form = supportMailForm()
+    if request.method == 'POST':
+        form = supportMailForm(request.POST)
+        if form.is_valid:
+            firstName = request.user.first_name
+            lastName = request.user.last_name
+            group= request.user.gangroups.all()
+            subject = request.POST['subject']
+            message = request.POST['message']
+            if (request.user.is_manager):
+                recipient = ['admin_gan@gmail.com']
+            elif (request.user.is_parent):
+                groupManager = User.objects.filter(is_manager=True,).filter(gangroups=group[0])
+            
+                recipient = [str(groupManager[0].email)] #TODO get specific manager mail for group
+            send_mail(subject,message,from_email=firstName+" "+lastName+" from group: "+str(group[0]),recipient_list=recipient)
+            return render(request,"../templates/support_page.html",{"first_name":firstName})
+    else:
+        return render(request,"../templates/support_page.html",{"form":form})
 
 def contact_info_view(request):
         data = contact_model.objects.all()
@@ -136,8 +153,8 @@ def contact_info_view(request):
             form=contactForm(request.POST)
         return render(request,'contact.html',{'form':form,'data':data})
 
-def delete_contact_view(request,parent_name):
-    obj = contact_model.objects.get(parent_name=parent_name)
+def delete_contact_view(request,pk):
+    obj = contact_model.objects.get(pk=pk)
     if request.method == 'POST':
         obj.delete()
         return redirect('../../')
