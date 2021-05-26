@@ -53,6 +53,9 @@ p,button {
   font-size: 20px;
   text-align: center;
 }
+.form-actions{
+  text-align: center;
+}
 
 </style>
 
@@ -78,9 +81,10 @@ p,button {
     {{ form.as_p }}
     <div class="form-actions">
       <button type="submit">Send</button>
-    </div>
-    {% if first_name %}
+      {% if first_name %}
     <h2> email sent, thank you {{first_name}}  </h2>
     
     {% endif %}
+    </div>
+    
 </form>

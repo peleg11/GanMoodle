@@ -25,7 +25,6 @@ class Manager(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
     police_cert = models.FileField(upload_to='policerts',null=True,blank=True)
     muni_cert = models.FileField(upload_to='municerts',null=True,blank=True)
-    email = models.EmailField()
     def __str__(self):
         return self.user.username
 
