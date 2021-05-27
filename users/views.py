@@ -4,9 +4,9 @@ from django.contrib import messages
 from django.views.generic import CreateView
 from django.core.mail import send_mail
 
-from .forms import ManagerForm, ParentForm,EditProfileForm,contactForm,supportMailForm
+from .forms import ManagerForm, ParentForm,EditProfileForm,contactForm,supportMailForm, Video_form
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
-from .models import GanGroup, User,contact_model
+from .models import GanGroup, User,contact_model, Video
 
 # Create your views here.
 def index (request):
@@ -27,6 +27,7 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 
 def change_password(request):
     if request.method == 'POST':
@@ -135,7 +136,7 @@ def support_page(request):
                 recipient = ['admin_gan@gmail.com']
             elif (request.user.is_parent):
                 groupManager = User.objects.filter(is_manager=True,).filter(gangroups=group[0])
-            
+
                 recipient = [str(groupManager[0].email)] #TODO get specific manager mail for group
             send_mail(subject,message,from_email=firstName+" "+lastName+" from group: "+str(group[0]),recipient_list=recipient)
             return render(request,"../templates/support_page.html",{"first_name":firstName})
@@ -159,3 +160,15 @@ def delete_contact_view(request,pk):
         obj.delete()
         return redirect('../../')
     return render(request,'delete_contact.html',context={'obj':obj})
+
+
+def video_index(request):
+    all_video=Video.objects.all()
+    if request.method == "POST":
+        form=Video_form(data=request.POST,files=request.FILES)
+        if form.is_valid():
+            form.save()
+        #    return HttpResponse("<h1> Uploaded successfully</h1>")
+    else:
+        form=Video_form()
+    return render(request,'media.html',{"form":form,"all":all_video})
