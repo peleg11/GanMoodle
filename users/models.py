@@ -45,3 +45,11 @@ class contact_model(models.Model):
 
     def __str__(self):
         return self.user.username
+
+from .validators import file_size
+class Video (models.Model):
+    caption=models.CharField(max_length=100)
+    video=models.FileField(upload_to="video/%y",validators=[file_size])
+    gangrp=models.CharField(max_length=100,null=True,blank=True)
+    def __str__(self):
+        return self.caption
