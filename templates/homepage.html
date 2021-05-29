@@ -35,6 +35,11 @@
           <li class="nav-item">
             <a class="btn btn-outline-primary" href="{% url 'profile' %}">{{user.username|title}}</a>
           </li>
+           {% if user.is_manager %}
+      <li class="nav-item">
+        <a class="btn btn-outline-primary" href="{% url 'activity_list' %}">Activities</a>
+      </li>
+      {% endif %}
         {% else %}
         <li><a href="{% url 'register' %}">Sign up </a></li>
         <li ><a  href="{% url 'login' %}">Sign in</a></li>
