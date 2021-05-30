@@ -33,10 +33,11 @@
         <li class="nav-item">
           <a class="btn btn-outline-primary" href="{% url 'profile' %}">{{user.username|title}}</a>
         </li>
-        {% if user.is_manager %}
         <li class="nav-item">
           <a class="btn btn-outline-primary" href="{% url 'activity_list' %}">Activities</a>
         </li>
+        {% if user.is_manager %}
+        
         <li class="nav-item">
           <a class="btn btn-outline-primary" href="{% url 'activity_new' %}">new</a>
         </li>
@@ -71,9 +72,12 @@
 </div>
 <style>
   .container{
+    width: 50%;
+    text-align: center;
+  }
+  .activity{
     border: 2px solid black;
-    width: 35%;
-    
+    width: 100%;
   }
   
 </style>
