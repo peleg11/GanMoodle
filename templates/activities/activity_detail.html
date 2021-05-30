@@ -33,10 +33,11 @@
         <li class="nav-item">
           <a class="btn btn-outline-primary" href="{% url 'profile' %}">{{user.username|title}}</a>
         </li>
-        {% if user.is_manager %}
         <li class="nav-item">
           <a class="btn btn-outline-primary" href="{% url 'activity_list' %}">Activities</a>
         </li>
+        {% if user.is_manager %}
+        
         <li class="nav-item">
           <a class="btn btn-outline-primary" href="{% url 'activity_new' %}">new</a>
         </li>
@@ -64,16 +65,21 @@
     {{activity.published_date}}
 </div>
 {% else %}
-<a class="btn btn-primary" href="{% url 'activity_publish' pk=activity.pk %}">Publish</a>
+<div class="publish">
+<a class="btn btn-success btn-lg btn-block" href="{% url 'activity_publish' pk=activity.pk %}">Publish</a>
+</div>
 {% endif %}
 
 
 
-{% if user.is_authenticated %}
-<a href="{% url 'activity_edit' pk=activity.pk %}" class="btn btn-primary">edit</a>
-<a href="{% url 'activity_delete' pk=activity.pk %}" class="btn btn-primary">remove</a>
-<h3>{{activity.text|safe|linebreaks}}</h3>
+{% if user.is_authenticated and user.is_manager %}
+<div class="edit-remove">
+<a href="{% url 'activity_edit' pk=activity.pk %}" class="btn btn-info btn-lg btn-block">edit</a>
+<a href="{% url 'activity_delete' pk=activity.pk %}" class="btn btn-danger btn-lg btn-block">remove</a>
+</div>
 {% endif %}
+<h2>{{activity.text|safe|linebreaks}}</h2>
+
 
 </div>
 
@@ -83,5 +89,17 @@
 <style>
   .container{
     border: 2px solid black;
+  }
+  .activity-title{
+    text-align: center;
+  }
+  .activitydate{
+    text-align: center;
+  }
+  .edit-remove{
+    text-align: center;
+  }
+  .publish{
+    text-align: center;
   }
 </style>

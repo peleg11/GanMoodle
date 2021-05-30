@@ -10,7 +10,7 @@
 </head>
 <body>
 
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar navbar-inverse  ">
     <div class="container-fluid">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
@@ -25,7 +25,7 @@
 
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav ">
       {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}">Logout</a>
@@ -33,16 +33,19 @@
         <li class="nav-item">
           <a class="btn btn-outline-primary" href="{% url 'profile' %}">{{user.username|title}}</a>
         </li>
-        {% if user.is_manager %}
         <li class="nav-item">
           <a class="btn btn-outline-primary" href="{% url 'activity_list' %}">Activities</a>
         </li>
+        {% if user.is_manager %}
+        
         <li class="nav-item">
           <a class="btn btn-outline-primary" href="{% url 'activity_new' %}">new</a>
         </li>
         <li class="nav-item">
           <a class="btn btn-outline-primary" href="{% url 'activity_draft_list' %}">Drafts</a>
         </li>
+        
+        
         {% endif %}
       {% else %}
       <li><a href="{% url 'register' %}">Sign up </a></li>
@@ -59,21 +62,25 @@
   <div class="container">
   <div class="centerstage">
     {% for activity in activity_list %}
-
+      {% if activity.auther.user.gangroups.all.0 == userGroups.0  %}
     <div class="activity">
         <h1><a href="{% url 'activity_detail' pk=activity.pk %}">{{activity.title}} </a></h1>
         <div class="date">
             <p>Published on : {{activity.published_date|date:"D M Y H:m:s"}}</p>
         </div>
     </div>
+    {% endif %}
     {% endfor %}
 </div>
 </div>
 <style>
   .container{
+    width: 50%;
+    text-align: center;
+  }
+  .activity{
     border: 2px solid black;
-    width: 35%;
-    
+    width: 100%;
   }
   
 </style>
