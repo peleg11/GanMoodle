@@ -27,6 +27,9 @@
       <li class="nav-item">
         <a class="btn btn-outline-primary" href="{% url 'activity_list' %}">Activities</a>
       </li>
+       <li class="nav-item">
+            <a class="nav-link" href="{% url 'media_page' %}">Media</a>
+          </li>
       {% if user.is_manager %}
       
       {% endif %}
