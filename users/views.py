@@ -164,11 +164,13 @@ def delete_contact_view(request,pk):
 
 def video_index(request):
     all_video=Video.objects.all()
+    gangrp=request.user.gangroups.all()[0]
     if request.method == "POST":
         form=Video_form(data=request.POST,files=request.FILES)
         if form.is_valid():
+            form=form.save(commit=False)
+            form.gangrp=request.user.gangroups.all()[0]
             form.save()
-        #    return HttpResponse("<h1> Uploaded successfully</h1>")
     else:
         form=Video_form()
-    return render(request,'media.html',{"form":form,"all":all_video})
+    return render(request,'media.html',{"form":form,"all":all_video, "grp":str(gangrp)})

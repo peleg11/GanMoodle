@@ -99,4 +99,6 @@ class supportMailForm(forms.Form):
 class Video_form(forms.ModelForm):
     class Meta:
         model=Video
-        fields=("caption","video")
+        exclude=['gangrp']
+        #gangrp=forms.CharField(queryset=User.gangroups.objects.all())
+        fields=("caption","video","gangrp")
