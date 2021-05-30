@@ -65,15 +65,17 @@
     {{activity.published_date}}
 </div>
 {% else %}
-<a class="btn btn-primary" href="{% url 'activity_publish' pk=activity.pk %}">Publish</a>
+<div class="publish">
+<a class="btn btn-success btn-lg btn-block" href="{% url 'activity_publish' pk=activity.pk %}">Publish</a>
+</div>
 {% endif %}
 
 
-<br>
+
 {% if user.is_authenticated and user.is_manager %}
 <div class="edit-remove">
-<a href="{% url 'activity_edit' pk=activity.pk %}" class="btn btn-info btn-lg">edit</a>
-<a href="{% url 'activity_delete' pk=activity.pk %}" class="btn btn-danger btn-lg">remove</a>
+<a href="{% url 'activity_edit' pk=activity.pk %}" class="btn btn-info btn-lg btn-block">edit</a>
+<a href="{% url 'activity_delete' pk=activity.pk %}" class="btn btn-danger btn-lg btn-block">remove</a>
 </div>
 {% endif %}
 <h2>{{activity.text|safe|linebreaks}}</h2>
@@ -95,6 +97,9 @@
     text-align: center;
   }
   .edit-remove{
+    text-align: center;
+  }
+  .publish{
     text-align: center;
   }
 </style>
