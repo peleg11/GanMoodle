@@ -4,9 +4,9 @@ from django.contrib import messages
 from django.views.generic import CreateView
 from django.core.mail import send_mail
 
-from .forms import ManagerForm, ParentForm,EditProfileForm,contactForm,supportMailForm, Video_form
+from .forms import ManagerForm, ParentForm,EditProfileForm,contactForm,supportMailForm, Video_form,Gallery_form
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
-from .models import GanGroup, User,contact_model, Video
+from .models import GanGroup, User,contact_model, Video,Gallery
 
 # Create your views here.
 def index (request):
@@ -174,3 +174,16 @@ def video_index(request):
     else:
         form=Video_form()
     return render(request,'media.html',{"form":form,"all":all_video, "grp":str(gangrp)})
+
+def gallery_index(request):
+    all_pic=Gallery.objects.all()
+    gangrp=request.user.gangroups.all()[0]
+    if request.method == "POST":
+        form=Gallery_form(data=request.POST,files=request.FILES)
+        if form.is_valid():
+            form=form.save(commit=False)
+            form.gangrp=request.user.gangroups.all()[0]
+            form.save()
+    else:
+        form=Gallery_form()
+    return render(request,'gallery.html',{"form":form,"all":all_pic, "grp":str(gangrp)})
