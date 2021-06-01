@@ -45,45 +45,26 @@
 
 </nav>
 
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-header text-black">
 
-<div class="flex_c">
-<table>
-  <tr>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Phone number</th>
-    <th>Email</th>
-  </tr>
-  {% for p in parents %}
-  <tr>
-    <td>{{ p.first_name }}</td>
-    <td>{{ p.last_name }}</td>
-    <td>{{ p.phone_number }}</td>
-    <td>{{ p.email }}</td>
-    {% if user.is_manager %}
-  <td><a href="delete_parent/{{ p.pk }}/"><input class="btn btn-danger" type="submit" value="Delete"></a></td>
-  {% endif %}
+          </div>
+          <div class="card-body">
+            <form class="" action="." method="POST">
+              {% csrf_token %}
+              <h1>Do you want to remove parent from your group?</h1>
+              <p><input class="btn btn-danger" type="submit" value="Yes" /><a href="{% url 'contact' %}" >cancel</p>
+            </form>
 
-  </tr>
-  {% endfor %}
-</table>
+           </div>
+              </div>
 
+          </div>
+        </div>
+      </div>
 
-</div>
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
+</section>

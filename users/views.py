@@ -200,3 +200,10 @@ def view_my_group(request):
     group= request.user.gangroups.all()
     parents = User.objects.filter(is_parent=True).filter(gangroups=group[0])
     return render(request,'my_group.html',{ "parents":parents})
+
+def delete_parent(request,pk):
+    obj = User.objects.get(pk=pk)
+    if request.method == 'POST':
+        obj.delete()
+        return redirect('../../')
+    return render(request,'remove_parent_from_group.html',context={'obj':obj})

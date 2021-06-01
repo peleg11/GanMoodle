@@ -20,6 +20,7 @@ urlpatterns=[
      path('gallery/',views.gallery_index, name='gallery_page'),
      path('gallery/delete_pic/<int:pk>/',views.delete_pic, name='delete_pic'),
      path('my_group/',views.view_my_group, name='my_group'),
+     path('my_group/delete_parent/<int:pk>/',views.delete_parent, name='delete_parent'),
 
 
 
