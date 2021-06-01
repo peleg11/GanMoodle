@@ -161,6 +161,13 @@ def delete_contact_view(request,pk):
         return redirect('../../')
     return render(request,'delete_contact.html',context={'obj':obj})
 
+def delete_pic(request,pk):
+    obj = Gallery.objects.get(pk=pk)
+    if request.method == 'POST':
+        obj.delete()
+        return redirect('../../')
+    return render(request,'delete_pic.html',context={'obj':obj})
+
 
 def video_index(request):
     all_video=Video.objects.all()

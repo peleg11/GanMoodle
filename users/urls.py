@@ -18,6 +18,7 @@ urlpatterns=[
      path('support_page/', views.support_page, name='support_page'),
      path('media_page/',views.video_index, name='media_page'),
      path('gallery/',views.gallery_index, name='gallery_page'),
+     path('gallery/delete_pic/<int:pk>/',views.delete_pic, name='delete_pic'),
 
 
 
