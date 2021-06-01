@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.db import transaction
-from .models import User,Manager,Parent,contact_model,GanGroup, Video
+from .models import User,Manager,Parent,contact_model,GanGroup, Video, Gallery
 from django.forms import ModelForm
 
 
@@ -102,3 +102,10 @@ class Video_form(forms.ModelForm):
         exclude=['gangrp']
         #gangrp=forms.CharField(queryset=User.gangroups.objects.all())
         fields=("caption","video","gangrp")
+
+class Gallery_form(forms.ModelForm):
+    class Meta:
+        model=Gallery
+        exclude=['gangrp']
+        #gangrp=forms.CharField(queryset=User.gangroups.objects.all())
+        fields=("caption","picture","gangrp")

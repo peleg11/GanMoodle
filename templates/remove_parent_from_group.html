@@ -45,35 +45,26 @@
 
 </nav>
 
-<div class="container">
-  {% if user.is_manager %}
-<div class="mt-5">
-  <form action="." method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button class="btn btn-success btn-lg">Upload Video</button>
-    </form>
-  </div>
-  {% endif %}
-<div class="container">
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-header text-black">
 
-  {% for x in all %}
-  {% if x.gangrp == grp %}
-  <h3 class="text-center mt-2 mb-2">{{x.caption}}</h3>
+          </div>
+          <div class="card-body">
+            <form class="" action="." method="POST">
+              {% csrf_token %}
+              <h1>Do you want to remove parent from your group?</h1>
+              <p><input class="btn btn-danger" type="submit" value="Yes" /><a href="{% url 'contact' %}" >cancel</p>
+            </form>
 
+           </div>
+              </div>
 
-  <video width='400' controls>
-  <source src="{{x.video.url}}" type="video/mp4" />
-  </video>
-  {% endif %}
+          </div>
+        </div>
+      </div>
 
-  {% endfor %}
-
-  </div>
-</div>
-
-<style>
-
-
-
-</style>
+</section>

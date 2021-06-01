@@ -31,6 +31,8 @@ class Manager(models.Model):
 class Parent(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
     child_id = models.CharField(max_length=9)
+    def __str__(self):
+        return self.user.username
 
 
 
@@ -51,5 +53,14 @@ class Video (models.Model):
     caption=models.CharField(max_length=100)
     video=models.FileField(upload_to="video/%y",validators=[file_size])
     gangrp=models.CharField(max_length=100,null=True,blank=True)
+    def __str__(self):
+        return self.caption
+
+class Gallery (models.Model):
+
+    caption=models.CharField(max_length=100)
+    picture=models.ImageField(upload_to='gallery',null=True,blank=True)
+    gangrp=models.CharField(max_length=100,null=True,blank=True)
+
     def __str__(self):
         return self.caption
