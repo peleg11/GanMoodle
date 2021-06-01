@@ -25,13 +25,19 @@
         <a class="btn btn-outline-primary" href="{% url 'profile' %}">{{user.username|title}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'media_page' %}">Media</a>
+        <a class="btn btn-outline-primary" href="{% url 'activity_list' %}">Activities</a>
       </li>
+       <li class="nav-item">
+            <a class="nav-link" href="{% url 'media_page' %}">Media</a>
+          </li>
+      {% if user.is_manager %}
+      
+      {% endif %}
     {% else %}
     <li><a href="{% url 'register' %}">Sign up </a></li>
     <li ><a  href="{% url 'login' %}">Sign in</a></li>
     {% endif %}
-
+ 
 
 
 
@@ -74,11 +80,10 @@
             <br>
             <br>
           <p style="text-align: center">Add parent <a href="{% url 'parent_register' %}">ADD</a> </p>
-
             {% endif %}
             <br>
             <br>
-
+            
             <p style="text-align: center;"><a href="{% url 'edit_profile' %}">edit your profile</a> </p>
             <p style="text-align: center;"><a href="{% url 'change_password' %}">Change Password</a> </p>
 

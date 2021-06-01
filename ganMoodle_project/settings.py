@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 #   'django.contrib.sites',
     'users',
     'widget_tweaks',
+    'activities',
 ]
 
 AUTH_USER_MODEL = 'users.User'
