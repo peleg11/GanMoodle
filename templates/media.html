@@ -43,7 +43,7 @@
 </nav>
 
 <div class="container">
-  {% if user.is_authenticated %}
+  {% if user.is_manager %}
 <div class="mt-5">
   <form action="." method="post" enctype="multipart/form-data">
     {% csrf_token %}
