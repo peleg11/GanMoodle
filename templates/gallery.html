@@ -26,6 +26,9 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'media_page' %}">Media</a>
       </li>
+      <li class="nav-item">
+           <a class="nav-link" href="{% url 'gallery_page' %}">Gallery</a>
+         </li>
     {% else %}
     <li><a href="{% url 'register' %}">Sign up </a></li>
     <li ><a  href="{% url 'login' %}">Sign in</a></li>
@@ -41,3 +44,15 @@
 </div><!-- /.container-fluid -->
 
 </nav>
+
+
+<div class="container">
+  {% if user.is_manager %}
+<div class="mt-5">
+  <form action="." method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-success btn-lg">Upload picture</button>
+    </form>
+  </div>
+  {% endif %}

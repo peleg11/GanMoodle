@@ -108,4 +108,4 @@ class Gallery_form(forms.ModelForm):
         model=Gallery
         exclude=['gangrp']
         #gangrp=forms.CharField(queryset=User.gangroups.objects.all())
-        fields=("caption","pic","gangrp")
+        fields=("caption","picture","gangrp")

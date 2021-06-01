@@ -57,7 +57,7 @@ class Video (models.Model):
 class Gallery (models.Model):
 
     caption=models.CharField(max_length=100)
-    pic=models.FileField(upload_to="gallery/",validators=[file_size])
+    picture=models.FileField(upload_to="gallery/",validators=[file_size])
     gangrp=models.CharField(max_length=100,null=True,blank=True)
 
     def __str__(self):
