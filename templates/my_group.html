@@ -60,8 +60,10 @@
     <td>{{ p.last_name }}</td>
     <td>{{ p.phone_number }}</td>
     <td>{{ p.email }}</td>
+    {% if user.is_manager %}
+  <td><a href="delete_contact/{{ contact.pk }}/"><input class="btn btn-danger" type="submit" value="Delete"></a></td>
+  {% endif %}
 
-      
   </tr>
   {% endfor %}
 </table>

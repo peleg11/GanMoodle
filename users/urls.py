@@ -19,6 +19,7 @@ urlpatterns=[
      path('media_page/',views.video_index, name='media_page'),
      path('gallery/',views.gallery_index, name='gallery_page'),
      path('gallery/delete_pic/<int:pk>/',views.delete_pic, name='delete_pic'),
+     path('my_group/',views.view_my_group, name='my_group'),
 
 
 
