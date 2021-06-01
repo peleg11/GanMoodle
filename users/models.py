@@ -53,3 +53,12 @@ class Video (models.Model):
     gangrp=models.CharField(max_length=100,null=True,blank=True)
     def __str__(self):
         return self.caption
+
+# class Gallery (models.Model):
+#
+#     caption=models.CharField(max_length=100)
+#     pic=models.ImageField(upload_to='gallery',null=True,blank=True)
+#     gangrp=models.CharField(max_length=100,null=True,blank=True)
+#
+#     def __str__(self):
+#         return self.caption
