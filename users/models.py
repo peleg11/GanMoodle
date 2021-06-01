@@ -31,6 +31,8 @@ class Manager(models.Model):
 class Parent(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
     child_id = models.CharField(max_length=9)
+    def __str__(self):
+        return self.user.username
 
 
 
