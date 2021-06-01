@@ -13,9 +13,10 @@ urlpatterns=[
      path('profile/',views.profile, name='profile'),
      path('logout/',views.logout_view, name='logout'),
      path('contact/',views.contact_info_view, name='contact'),
-     path('contact/delete_contact/<str:parent_name>/',views.delete_contact_view, name='delete_contact'),
+     path('contact/delete_contact/<int:pk>/',views.delete_contact_view, name='delete_contact'),
      path('change_password/', views.change_password, name='change_password'),
      path('support_page/', views.support_page, name='support_page'),
+     path('media_page/',views.video_index, name='media_page'),
 
 
 

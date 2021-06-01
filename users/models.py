@@ -5,7 +5,6 @@ class GanGroup(models.Model):
 
     name = models.CharField(max_length=128)
 
-
     def __str__(self):
         return self.name
     def __unicode__(self):
@@ -38,7 +37,7 @@ class Parent(models.Model):
 class contact_model(models.Model):
     parent_name = models.CharField(max_length=100,blank=False)
     child_name = models.CharField(max_length=100,blank=False)
-    phone_number = models.IntegerField(blank=True,null=True)
+    phone_number = models.CharField(max_length=10,blank=True,null=True)
     email = models.EmailField()
 
 
@@ -46,3 +45,11 @@ class contact_model(models.Model):
 
     def __str__(self):
         return self.user.username
+
+from .validators import file_size
+class Video (models.Model):
+    caption=models.CharField(max_length=100)
+    video=models.FileField(upload_to="video/%y",validators=[file_size])
+    gangrp=models.CharField(max_length=100,null=True,blank=True)
+    def __str__(self):
+        return self.caption

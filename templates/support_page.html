@@ -25,6 +25,11 @@
       <li class="nav-item">
         <a class="btn btn-outline-primary" href="{% url 'profile' %}">{{user.username|title}}</a>
       </li>
+       {% if user.is_manager %}
+      <li class="nav-item">
+        <a class="btn btn-outline-primary" href="{% url 'activity_list' %}">Activities</a>
+      </li>
+      {% endif %}
     {% else %}
     <li><a href="{% url 'register' %}">Sign up </a></li>
     <li ><a  href="{% url 'login' %}">Sign in</a></li>
@@ -48,11 +53,15 @@ h3 {
   text-align: center;
 }
 
-p {
+p,button {
   font-family: verdana;
   font-size: 20px;
   text-align: center;
 }
+.form-actions{
+  text-align: center;
+}
+
 </style>
 
 
@@ -71,3 +80,16 @@ p {
 </div>
 
 <h4 style="text-align: center; color: blue; ">If have another questions you can send mail to admin:admin@admin.com</h4>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="form-actions">
+      <button type="submit">Send</button>
+      {% if first_name %}
+    <h2> email sent, thank you {{first_name}}  </h2>
+    
+    {% endif %}
+    </div>
+    
+</form>
