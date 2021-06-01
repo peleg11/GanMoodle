@@ -74,10 +74,11 @@
         <h3 style="text-align: center;">My Group</h3>
         <p style="text-align: center;">{{ g }}</p>
           {% endfor %}
+
           <p style="text-align: center"> <a href="{% url 'support_page' %}">Support</a> </p>
 
           {% if user.is_manager %}
-
+          <p style="text-align: center"> <a href="{% url 'my_group' %}">View my group</a> </p>
 
 
             <br>

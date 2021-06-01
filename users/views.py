@@ -194,3 +194,9 @@ def gallery_index(request):
     else:
         form=Gallery_form()
     return render(request,'gallery.html',{"form":form,"all":all_pic, "grp":str(gangrp)})
+
+def view_my_group(request):
+
+    group= request.user.gangroups.all()
+    parents = User.objects.filter(is_parent=True).filter(gangroups=group[0])
+    return render(request,'my_group.html',{ "parents":parents})
