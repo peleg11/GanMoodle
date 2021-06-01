@@ -47,15 +47,17 @@
 
 
 <div class="container">
-  {% if user.is_manager %}
+  {% if user.is_authenticated %}
 <div class="mt-5">
   <form action="." method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{form.as_p}}
-    <button class="btn btn-success btn-lg">Upload picture</button>
+    <button class="btn btn-success btn-lg" href="{% url 'gallery_page' %}">Upload picture</button>
     </form>
   </div>
   {% endif %}
+
+  </div>
 
 
   <div class="container">
@@ -71,4 +73,3 @@
     {% endfor %}
 
     </div>
-  </div>
