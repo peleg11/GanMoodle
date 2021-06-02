@@ -26,5 +26,4 @@ urlpatterns = [
     path('activities/',include('activities.urls')),
     path('events/',include('events.urls')),
     path('media/profilepics/',admin.site.urls),
-    #path('regpage.html',views.regpage, name='regpage'),
 ]+static (settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
