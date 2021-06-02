@@ -6,11 +6,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 
-    <title>activity GanMoodle</title>
+    <title>drafts GanMoodle</title>
 </head>
 <body>
 
-  <nav class="navbar navbar-inverse  ">
+  <nav class="navbar navbar-inverse">
     <div class="container-fluid">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
@@ -25,7 +25,7 @@
 
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav ">
+    <ul class="nav navbar-nav">
       {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}">Logout</a>
@@ -34,19 +34,17 @@
           <a class="btn btn-outline-primary" href="{% url 'profile' %}">{{user.username|title}}</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-outline-primary" href="{% url 'activity_list' %}">Activities</a>
+        <a class="btn btn-outline-primary" href="{% url 'events_list' %}">Events</a>
+      </li>
+         {% if user.is_manager %}
+      
+      <li class="nav-item">
+          <a class="btn btn-outline-primary" href="{% url 'event_new' %}">new</a>
         </li>
-        {% if user.is_manager %}
-        
         <li class="nav-item">
-          <a class="btn btn-outline-primary" href="{% url 'activity_new' %}">new</a>
+          <a class="btn btn-outline-primary" href="{% url 'event_draft_list' %}">Drafts</a>
         </li>
-        <li class="nav-item">
-          <a class="btn btn-outline-primary" href="{% url 'activity_draft_list' %}">Drafts</a>
-        </li>
-        
-        
-        {% endif %}
+      {% endif %}
       {% else %}
       <li><a href="{% url 'register' %}">Sign up </a></li>
       <li ><a  href="{% url 'login' %}">Sign in</a></li>
@@ -59,19 +57,21 @@
   </div><!-- /.container-fluid -->
 
   </nav>
-  <div class="container">
-  <div class="centerstage">
-    {% for activity in activity_list %}
-      {% if activity.auther.user.gangroups.all.0 == userGroups.0  %}
-    <div class="activity">
-        <h1><a href="{% url 'activity_detail' pk=activity.pk %}">{{activity.title}} </a></h1>
-        <div class="date">
-            <p>Published on : {{activity.published_date|date:"D M Y H:m:s"}}</p>
-        </div>
+<div class="container">
+    {% if drafts %}
+   {% for event in drafts %}
+    <div class="event">
+        <h1><a href="{% url 'event_detail' pk=event.pk %}">{{event.name}}</a></h1>
+        <p class="date">created: {{event.created_date|date:"D M Y H:m:s"}}</p>
+        <!-- <p class="text">{{activity.text}}</p> -->
+        
+    </div>
+    {% endfor %}
+    {% else %}
+    <div style="font-size:300%;">
+    <strong> Drafts list is empty!</strong>
     </div>
     {% endif %}
-    {% endfor %}
-</div>
 </div>
 <style>
   .container{
@@ -81,6 +81,12 @@
   .activity{
     border: 2px solid black;
     width: 100%;
+    margin: auto;
+    padding: 1.5em;
+    
+  }
+  .text{
+    font-size:200%;
   }
   
 </style>

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 
-    <title>Login GanMoodle</title>
+    <title>drafts GanMoodle</title>
 </head>
 <body>
 
@@ -58,10 +58,36 @@
 
   </nav>
 <div class="container">
-   {% for activity in activities %}
+    {% if drafts %}
+
+   {% for activity in drafts %}
     <div class="activity">
-        <p class="date">created: {{activity.created_date|date:'d-m-y'}}</p>
-        <h1><a href="{% url 'activity_detial' pk=activity.pk %}">{{activity.title}}</a></h1>
-        <p>{{activity.text|truncatechers:200}}</p>
+        <h1><a href="{% url 'activity_detail' pk=activity.pk %}">{{activity.title}}</a></h1>
+        <p class="date">created: {{activity.created_date|date:"D M Y H:m:s"}}</p>
+        <!-- <p class="text">{{activity.text}}</p> -->
+        
     </div>
+    {% endfor %}
+     {% else %}
+    <div style="font-size:300%;">
+    <strong> Drafts list is empty!</strong>
+    </div>
+    {% endif %}
 </div>
+<style>
+  .container{
+    width: 50%;
+    text-align: center;
+  }
+  .activity{
+    border: 2px solid black;
+    width: 100%;
+    margin: auto;
+    padding: 1.5em;
+    
+  }
+  .text{
+    font-size:200%;
+  }
+  
+</style>
