@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel="stylesheet" href="cssHelper">
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
 <!-- Brand and toggle get grouped for better mobile display -->
@@ -23,6 +23,12 @@
       <li class="nav-item">
         <a class="btn btn-outline-primary" href="{% url 'profile' %}">{{user.username|title}}</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'media_page' %}">Media</a>
+      </li>
+      <li class="nav-item">
+           <a class="nav-link" href="{% url 'gallery_page' %}">Gallery</a>
+         </li>
     {% else %}
     <li><a href="{% url 'register' %}">Sign up </a></li>
     <li ><a  href="{% url 'login' %}">Sign in</a></li>
@@ -40,7 +46,7 @@
 </nav>
 
 <div class="container">
-  {% if user.is_manager %}
+  {% if user.is_authenticated %}
 <div class="mt-5">
   <form action="." method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -50,13 +56,17 @@
   </div>
   {% endif %}
 <div class="container">
+
   {% for x in all %}
+  {% if x.gangrp == grp %}
   <h3 class="text-center mt-2 mb-2">{{x.caption}}</h3>
 
 
   <video width='400' controls>
   <source src="{{x.video.url}}" type="video/mp4" />
   </video>
+  {% endif %}
+
   {% endfor %}
 
   </div>

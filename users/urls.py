@@ -17,6 +17,10 @@ urlpatterns=[
      path('change_password/', views.change_password, name='change_password'),
      path('support_page/', views.support_page, name='support_page'),
      path('media_page/',views.video_index, name='media_page'),
+     path('gallery/',views.gallery_index, name='gallery_page'),
+     path('gallery/delete_pic/<int:pk>/',views.delete_pic, name='delete_pic'),
+     path('my_group/',views.view_my_group, name='my_group'),
+     path('my_group/delete_parent/<int:pk>/',views.delete_parent, name='delete_parent'),
 
 
 
