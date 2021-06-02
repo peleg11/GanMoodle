@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 
-    <title>activity GanMoodle</title>
+    <title>events GanMoodle</title>
 </head>
 <body>
 
@@ -34,16 +34,16 @@
           <a class="btn btn-outline-primary" href="{% url 'profile' %}">{{user.username|title}}</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-outline-primary" href="{% url 'activity_list' %}">Activities</a>
+          <a class="btn btn-outline-primary" href="{% url 'events_list' %}">Events</a>
         </li>
         {% if user.is_manager %}
         
-        <li class="nav-item">
-          <a class="btn btn-outline-primary" href="{% url 'activity_new' %}">new</a>
+         <li class="nav-item">
+          <a class="btn btn-outline-primary" href="{% url 'event_new' %}">new</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-outline-primary" href="{% url 'activity_draft_list' %}">Drafts</a>
-        </li>
+          <a class="btn btn-outline-primary" href="{% url 'event_draft_list' %}">Drafts</a>
+        </li> 
         
         
         {% endif %}
@@ -57,30 +57,76 @@
 
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
-
   </nav>
+
   <div class="container">
-  <div class="centerstage">
-    {% for activity in activity_list %}
-      {% if activity.auther.user.gangroups.all.0 == userGroups.0  %}
-    <div class="activity">
-        <h1><a href="{% url 'activity_detail' pk=activity.pk %}">{{activity.title}} </a></h1>
-        <div class="date">
-            <p>Published on : {{activity.published_date|date:"D M Y H:m:s"}}</p>
+  
+  <br><br>
+  <h3>{{ cal|safe}}</h3>
+  </div>
+  <div class="container">
+    <div class="centerstage">
+      {% for event in event_list %}
+      
+         {% if event.auther.user.gangroups.all.0 == userGroups.0  %}
+        
+       
+      <div class="event" style="border-bottom: 2px solid black;">
+        <div class="card" style="width: 100rem; font-size: 130%;">
+          <div class="card-header" style="text-align: center;">
+            <h1><a href="{% url 'event_detail' pk=event.pk %}">{{event.name}} </a></h1>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Date:</strong>  {{event.date}}</li>
+            <li class="list-group-item"><strong>Created by:</strong> {{ event.auther }} - {{ userGroups.0 }} Maneger</li>
+            <li class="list-group-item"><strong>Confirmed attendees:</strong>
+              <ul>{% for att in event.attendees.all%}
+               <li>{{att}}</li>
+              {% endfor %}
+            </ul></li>
+            <li class="list-group-item"><strong>Description:</strong> 
+              {{event.discription}}</li>
+          </ul>
         </div>
-    </div>
-    {% endif %}
-    {% endfor %}
-</div>
-</div>
+       
+         
+      </div>
+      {% endif %}
+      {% endfor %}
+  </div>
+  </div>
+ 
+
+
+
+
+
 <style>
   .container{
-    width: 50%;
-    text-align: center;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
   }
-  .activity{
+   th{
     border: 2px solid black;
-    width: 100%;
+    font-size: 80%;
+    padding: 0.5em;
+    background-color: lightgray;
+    
+  }
+  .month{
+    border: 2px solid black;
+    text-align: center;
+    margin: auto;
+    padding: 0.5em;
+    font-size: 120% ;
+    
+  }
+  td{
+    border: 2px solid black;
+
   }
   
+
 </style>

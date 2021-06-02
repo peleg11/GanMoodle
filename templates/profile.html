@@ -1,4 +1,4 @@
-
+<title>GanMoodle</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" href="cssHelper">
 <nav class="navbar navbar-inverse">
@@ -27,7 +27,10 @@
       <li class="nav-item">
         <a class="btn btn-outline-primary" href="{% url 'activity_list' %}">Activities</a>
       </li>
-       <li class="nav-item">
+      <li class="nav-item">
+        <a class="btn btn-outline-primary" href="{% url 'events_list' %}">Events</a>
+      </li>
+           <li class="nav-item">
             <a class="nav-link" href="{% url 'media_page' %}">Media</a>
           </li>
           <li class="nav-item">
@@ -63,26 +66,27 @@
       {%endif%}
     </div>
     <div class="grid-65">
-        <h1 style="text-align: center;">Your Profile</h1>
-        <h3 style="text-align: center;">First Name</h3>
-        <p style="text-align: center;">{{ user.first_name|lower|capfirst }}</p>
-        <h3 style="text-align: center;">Last Name</h3>
-        <p style="text-align: center;">{{ user.last_name|lower|capfirst }}</p>
-        <h3 style="text-align: center;">Email</h3>
-        <p style="text-align: center;">{{ user.email }}</p>
+      <div class="container">
+        <h1 style="text-align: left;">Your Profile</h1>
+        <h3 style="text-align: left;">First Name</h3>
+        <p style="text-align: left;">{{ user.first_name|lower|capfirst }}</p>
+        <h3 style="text-align: left;">Last Name</h3>
+        <p style="text-align: left;">{{ user.last_name|lower|capfirst }}</p>
+        <h3 style="text-align: left;">Email</h3>
+        <p style="text-align: left;">{{ user.email }}</p>
         {% for g in gangroups %}
-        <h3 style="text-align: center;">My Group</h3>
-        <p style="text-align: center;">{{ g }}</p>
+        <h3 style="text-align: left;">My Group</h3>
+        <p style="text-align: left;">{{ g }}</p>
           {% endfor %}
             <p style="text-align: center"> <a href="{% url 'my_group' %}">View my group</a> </p>
+        </div>
+          <br><br>
           <p style="text-align: center"> <a href="{% url 'support_page' %}">Support</a> </p>
 
           {% if user.is_manager %}
 
 
 
-            <br>
-            <br>
           <p style="text-align: center">Add parent <a href="{% url 'parent_register' %}">ADD</a> </p>
             {% endif %}
             <br>
@@ -102,3 +106,12 @@
 
 
     </div>
+<style>
+  .center{
+    text-align: left;
+    width: 150px;
+    margin: 30px;
+    margin-bottom: 0;
+    margin-left: 80px;
+  }
+</style>

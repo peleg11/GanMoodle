@@ -46,12 +46,20 @@ class DraftListView(LoginRequiredMixin,ListView):
     login_url = '/login/'
     redirect_field_name = 'activity_list.html'
     model = Activity
+    template_name='activities/activity_draft_list.html'
     
     def get_queryset(self):
         return Activity.objects.filter(published_date__isnull=True).order_by('created_date')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        drafts = Activity.objects.filter(published_date__isnull=True).order_by('created_date')
+        context["drafts"] = drafts
+        return context
+
+
 @login_required
-def activity_publish(reques,pk):
+def activity_publish(request,pk):
     activity = get_object_or_404(Activity,pk=pk)
     activity.publish()
     return redirect('activity_detail',pk=pk)
