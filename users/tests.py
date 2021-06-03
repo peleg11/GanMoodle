@@ -205,3 +205,62 @@ class contactTest(TestCase):
     def test_exists(self):
         obj = contact_model.objects.get(parent_name='parent')
         self.assertTrue(self.contact is not None)
+
+
+@tag('unit-test')
+class ViewsTest(TestCase):
+        def setUp(self):
+            self.user = get_user_model().objects.create_user(username='test', password='12test12', email='test@example.com')
+            self.user.save()
+        def test_view_url_register(self):
+            self.client.force_login(self.user)
+            response = self.client.get(reverse('register'))
+            self.assertEqual(response.status_code, 200)
+        def test_view_url_parent_register(self):
+            self.client.force_login(self.user)
+            response = self.client.get(reverse('parent_register'))
+            self.assertEqual(response.status_code, 200)
+        def test_view_url_edit_profile(self):
+            self.client.force_login(self.user)
+            response = self.client.get(reverse('edit_profile'))
+            self.assertEqual(response.status_code, 200)
+        def test_view_url_manager_register(self):
+            self.client.force_login(self.user)
+            response = self.client.get(reverse('manager_register'))
+            self.assertEqual(response.status_code, 200)
+        def test_view_url_login(self):
+            self.client.force_login(self.user)
+            response = self.client.get(reverse('login'))
+            self.assertEqual(response.status_code, 200)
+        def test_view_url_profile(self):
+            self.client.force_login(self.user)
+            response = self.client.get(reverse('profile'))
+            self.assertEqual(response.status_code, 200)
+        def test_view_url_logout(self):
+            self.client.force_login(self.user)
+            response = self.client.get(reverse('logout'))
+            self.assertEqual(response.status_code, 302)
+        def test_view_url_contact(self):
+            self.client.force_login(self.user)
+            response = self.client.get(reverse('contact'))
+            self.assertEqual(response.status_code, 200)
+        # def test_view_url_delete_contact(self):
+        #     self.client.force_login(self.user)
+        #     response = self.client.get(reverse('contact/delete_contact/<int:pk>/'))
+        #     self.assertEqual(response.status_code, 200)
+        def test_view_url_change_password(self):
+            self.client.force_login(self.user)
+            response = self.client.get(reverse('change_password'))
+            self.assertEqual(response.status_code, 200)
+        def test_view_url_support_page(self):
+            self.client.force_login(self.user)
+            response = self.client.get(reverse('support_page'))
+            self.assertEqual(response.status_code, 200)
+        # def test_view_url_gallery_page(self):
+        #     self.client.force_login(self.user)
+        #     response = self.client.get(reverse('gallery_page'))
+        #     self.assertEqual(response.status_code, 200)
+        # def test_view_url_delete_pic(self):
+        #     self.client.force_login(self.user)
+        #     response = self.client.get(reverse('gallery/delete_pic/<int:pk>/'))
+        #     self.assertEqual(response.status_code, 200)
