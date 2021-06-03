@@ -73,7 +73,7 @@ pipeline {
                       dir("./") {
                           sh 'pip install pylint'
                           sh 'pip install pylint-django'
-                          sh 'python -m  pylint  --fail-under=8 GanMoodle users'
+                          sh 'python -m  pylint GanMoodle users'
                       }
 
                 }
