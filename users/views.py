@@ -132,24 +132,25 @@ def support_page(request):
             group= request.user.gangroups.all()
             subject = request.POST['subject']
             message = request.POST['message']
-            if (request.user.is_manager):
+            if request.user.is_manager:
                 recipient = ['admin_gan@gmail.com']
-            elif (request.user.is_parent):
+            elif request.user.is_parent:
                 groupManager = User.objects.filter(is_manager=True,).filter(gangroups=group[0])
 
                 recipient = [str(groupManager[0].email)] #TODO get specific manager mail for group
-            send_mail(subject,message,from_email=firstName+" "+lastName+" from group: "+str(group[0]),recipient_list=recipient)
+            send_mail(subject,message,from_email=firstName+" "+lastName+" from group: "+str(group[0]),
+                        recipient_list=recipient)
             return render(request,"../templates/support_page.html",{"first_name":firstName})
     else:
         return render(request,"../templates/support_page.html",{"form":form})
 
 def contact_info_view(request):
-        data = contact_model.objects.all()
-        if request.method == 'POST':
-            form = contactForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('contact')
+    data = contact_model.objects.all()
+    if request.method == 'POST':
+        form = contactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('contact')
         else :
             form=contactForm(request.POST)
         return render(request,'contact.html',{'form':form,'data':data})
