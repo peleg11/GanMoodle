@@ -1,3 +1,4 @@
+from django.core.mail import send_mail
 from django.db import models
 
 # Create your models here.
@@ -26,6 +27,13 @@ class Event(models.Model):
     def remove_attendee(self,user):
         self.attendees.remove(user)
         self.save()
+
+    def sendMail(self,group):
+        parents = User.objects.filter(is_parent=True).filter(gangroups=group[0])
+        mailList = [p.email for p in parents]
+        send_mail(self.name,self.discription + " " + str(self.date),self.auther.user.email,mailList)
+        self.save()
+        
 
     def __str__(self):
         return self.name

@@ -12,5 +12,4 @@ urlpatterns = [
     path('event/<int:pk>/attend/',views.Event_attend,name='event_attend'),
     path('event/<int:pk>/attend_remove/',views.Event_attend_remove,name='event_attend_remove'),
 
-
 ]
