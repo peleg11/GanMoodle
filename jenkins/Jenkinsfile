@@ -13,7 +13,7 @@ pipeline {
         }
     stage('Migrate') {
         steps{
-          dir("Agile_inv") {
+          dir("GanMoodle") {
             withEnv(["HOME=${env.WORKSPACE}"]) {
                 sh 'python manage.py makemigrations'
                 sh 'python manage.py migrate'
