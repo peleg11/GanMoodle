@@ -3,6 +3,10 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.views.generic import CreateView
 from django.core.mail import send_mail
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.http import HttpResponse
 
 from .forms import ManagerForm, ParentForm,EditProfileForm,contactForm,supportMailForm, Video_form,Gallery_form
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
@@ -23,11 +27,7 @@ def regpage (request):
     return render(request,'regpage.html',{'form':form})
 
 
-from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+
 
 def change_password(request):
     if request.method == 'POST':
