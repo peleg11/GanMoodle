@@ -11,9 +11,10 @@ pipeline {
             }
 
         }
-        stage('setup'){
-          steps{
-            withEnv(["HOME=${env.WORKSPACE}"]){
+
+    stage('setup'){
+        steps{
+          withEnv(["HOME=${env.WORKSPACE}"]){
 
             dir('jenkins'){
             sh 'python -m pip install -r requirements.txt'
@@ -23,16 +24,70 @@ pipeline {
           }
         }
 
-          stage('Run Unit Tests') {
-                steps {
-            dir("./") {
-              withEnv(["HOME=${env.WORKSPACE}"]) {
-                sh "python -m coverage run manage.py test --tag=unit-test"
-
-              }
+    stage('Migrate') {
+        steps{
+          dir("./") {
+            withEnv(["HOME=${env.WORKSPACE}"]) {
+                sh 'python manage.py makemigrations'
+                sh 'python manage.py migrate'
             }
           }
-            }
-    }
+        }
+      }
 
-}
+
+        stage('Run Unit Tests') {
+                steps {
+    				dir("./") {
+    					withEnv(["HOME=${env.WORKSPACE}"]) {
+    						sh "python -m coverage run manage.py test --tag=unit-test"
+    					}
+    				}
+    			}
+            }
+          stage('Run Integration Tests') {
+                  steps {
+        				dir("./") {
+        					withEnv(["HOME=${env.WORKSPACE}"]) {
+        						sh "python -m coverage run -a manage.py test --tag=integration-test"
+        					}
+        				}
+        			}
+                }
+          stage('coverage') {
+
+              steps {
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    dir("./") {
+                       sh 'python -m coverage xml -o ./Test/coverage.xml'
+                       sh 'python -m coverage report --fail-under=45'
+
+                    }
+        }
+        }
+    }
+        stage('pylint') {
+
+              steps {
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                      dir("./") {
+                          sh 'python -m  pylint GanMoodle users'
+                      }
+
+                }
+              }
+        }
+    }
+    post {
+        failure{
+          mail to: 'almog10080@gmail.com',
+          subject: "Failed: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']",
+          body: "Failed: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']: Check console output at '${env.BUILD_URL}' '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']"
+        }
+        success{
+          mail to: 'almog10080@gmail.com',
+          subject: "SUCCESS: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']",
+          body: "SUCCESS: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']: Check console output at '${env.BUILD_URL}' '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']"
+        }
+    }
+  }
