@@ -66,6 +66,8 @@ class DraftListView(LoginRequiredMixin,ListView):
 def Event_publish(request,pk):
     event = get_object_or_404(Event,pk=pk)
     event.publish()
+    group= request.user.gangroups.all()
+    event.sendMail(group)
     return redirect('event_detail',pk=pk)
 
 @login_required
