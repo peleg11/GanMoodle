@@ -29,6 +29,9 @@
       <li class="nav-item">
         <a class="btn btn-outline-primary" href="{% url 'activity_list' %}">Activities</a>
       </li>
+      <li class="nav-item">
+           <a class="nav-link" href="{% url 'gallery_page' %}">Gallery</a>
+         </li>
       {% endif %}
     {% else %}
     <li><a href="{% url 'register' %}">Sign up </a></li>
@@ -88,8 +91,8 @@ p,button {
       <button type="submit">Send</button>
       {% if first_name %}
     <h2> email sent, thank you {{first_name}}  </h2>
-    
+
     {% endif %}
     </div>
-    
+
 </form>
