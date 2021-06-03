@@ -69,9 +69,9 @@
                            <div class="form-group">
                                {{ field.label_tag }}
                                   {% render_field field class="form-control" %}
-                                    {% for error in field.errors %}
+                                    {% comment %} {% for error in field.errors %}
                                       <span style="color:red">{{ error }}</span>
-                                    {% endfor %}
+                                    {% endfor %} {% endcomment %}
                          {% endfor %}
                              <input type="submit" value="Save Changes" class="btn btn-block btn-primary">
                            </div>
@@ -85,3 +85,9 @@
 
 </body>
 </html>
+<style>
+  .nf-form-fields-required {
+  display: none;
+}
+
+</style>

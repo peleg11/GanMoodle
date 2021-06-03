@@ -77,15 +77,15 @@ class ParentForm(UserCreationForm):
             return user
 
 class EditProfileForm(UserChangeForm ):
-    first_name = forms.CharField(required=False)
-    last_name = forms.CharField(required=False)
-    phone_number = forms.CharField(required=True)
-    profile_pic = forms.CharField(required=True)
+    # first_name = forms.CharField(required=False)
+    # last_name = forms.CharField(required=False)
+    # phone_number = forms.CharField(required=True)
+    # profile_pic = forms.CharField(required=True)
 
     class Meta:
         model = User
-        fields = ('first_name','last_name', 'phone_number','profile_pic')
-        #exclude = ('user',)
+        fields = ['first_name','last_name', 'phone_number','profile_pic']
+        # exclude = ['password',]
 
 class contactForm(ModelForm):
     class Meta:
