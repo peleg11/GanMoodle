@@ -3,13 +3,12 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.views.generic import CreateView
 from django.core.mail import send_mail
-from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponse
 
 from .forms import ManagerForm, ParentForm,EditProfileForm,contactForm,supportMailForm, Video_form,Gallery_form
-from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm
 from .models import GanGroup, User,contact_model, Video,Gallery
 
 # Create your views here.
@@ -127,19 +126,19 @@ def support_page(request):
     if request.method == 'POST':
         form = supportMailForm(request.POST)
         if form.is_valid:
-            firstName = request.user.first_name
-            lastName = request.user.last_name
+            first_Name = request.user.first_name
+            last_Name = request.user.last_name
             group= request.user.gangroups.all()
             subject = request.POST['subject']
             message = request.POST['message']
             if request.user.is_manager:
                 recipient = ['admin_gan@gmail.com']
             elif request.user.is_parent:
-                groupManager = User.objects.filter(is_manager=True,).filter(gangroups=group[0])
+                group_Manager = User.objects.filter(is_manager=True,).filter(gangroups=group[0])
 
-                recipient = [str(groupManager[0].email)] #TODO get specific manager mail for group
-            send_mail(subject,message,from_email=firstName+" "+lastName+" from group: "+str(group[0]),recipient_list=recipient)
-            return render(request,"../templates/support_page.html",{"first_name":firstName})
+                recipient = [str(group_Manager[0].email)] #TODO get specific manager mail for group
+            send_mail(subject,message,from_email=first_Name+" "+last_Name+" from group: "+str(group[0]),recipient_list=recipient)
+            return render(request,"../templates/support_page.html",{"first_name":first_Name})
     else:
         return render(request,"../templates/support_page.html",{"form":form})
 
