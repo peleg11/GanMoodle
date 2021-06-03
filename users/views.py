@@ -144,15 +144,15 @@ def support_page(request):
         return render(request,"../templates/support_page.html",{"form":form})
 
 def contact_info_view(request):
-    data = contact_model.objects.all()
-    if request.method == 'POST':
-        form = contactForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('contact')
+        data = contact_model.objects.all()
+        if request.method == 'POST':
+            form = contactForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('contact')
         else :
             form=contactForm(request.POST)
-    return render(request,'contact.html',{'form':form,'data':data})
+        return render(request,'contact.html',{'form':form,'data':data})
 
 def delete_contact_view(request,pk):
     obj = contact_model.objects.get(pk=pk)
