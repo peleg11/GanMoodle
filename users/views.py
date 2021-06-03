@@ -138,8 +138,7 @@ def support_page(request):
                 groupManager = User.objects.filter(is_manager=True,).filter(gangroups=group[0])
 
                 recipient = [str(groupManager[0].email)] #TODO get specific manager mail for group
-            send_mail(subject,message,from_email=firstName+" "+lastName+" from group: "+str(group[0]),
-                        recipient_list=recipient)
+            send_mail(subject,message,from_email=firstName+" "+lastName+" from group: "+str(group[0]),recipient_list=recipient)
             return render(request,"../templates/support_page.html",{"first_name":firstName})
     else:
         return render(request,"../templates/support_page.html",{"form":form})
@@ -153,7 +152,7 @@ def contact_info_view(request):
             return redirect('contact')
         else :
             form=contactForm(request.POST)
-        return render(request,'contact.html',{'form':form,'data':data})
+    return render(request,'contact.html',{'form':form,'data':data})
 
 def delete_contact_view(request,pk):
     obj = contact_model.objects.get(pk=pk)
