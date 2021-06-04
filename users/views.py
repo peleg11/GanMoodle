@@ -1,25 +1,26 @@
+'''
+views for site
+'''
 from django.contrib.auth import login, logout,authenticate
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from django.shortcuts import render, redirect
-
+from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 from .forms import ManagerForm, ParentForm,EditProfileForm,contactForm,supportMailForm, Video_form,Gallery_form
-from django.contrib.auth.forms import AuthenticationForm
-from .models import GanGroup, User,contact_model, Video,Gallery
+from .models import User,contact_model, Video,Gallery
 
 # Create your views here.
 def index (request):
     '''
-        view function that renders the hompage 
+    view function that renders the hompage 
     '''
     return render(request,'homepage.html',context={})
 
 def regpage (request):
     '''
-        view function that renders the regpage 
+    view function that renders the regpage 
     '''
     if request.method == 'POST':
         form = UserForm(request.POST)
@@ -35,7 +36,7 @@ def regpage (request):
 
 def change_password(request):
     '''
-        view function that renders the change_password 
+    view function that renders the change_password 
     '''
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
@@ -54,14 +55,14 @@ def change_password(request):
 
 def register(request):
     '''
-        view function that renders the register 
+    view function that renders the register 
     '''
     return render(request, '../templates/register.html')
 
 
 def manager_register (request):
     '''
-        view function that renders the manager_register 
+    view function that renders the manager_register 
     '''
     if request.method == 'POST':
         form = ManagerForm(request.POST, request.FILES)
@@ -74,7 +75,7 @@ def manager_register (request):
 
 def parent_register (request):
     '''
-        view function that renders the parent_register 
+    view function that renders the parent_register 
     '''
     if request.method == 'POST':
         form = ParentForm(request.POST, request.FILES)
@@ -87,7 +88,7 @@ def parent_register (request):
 
 def edit_profile (request):
     '''
-        view function that renders the edit_profile 
+    view function that renders the edit_profile 
     '''
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=request.user)
@@ -100,7 +101,7 @@ def edit_profile (request):
 
 def profile(request):
     '''
-        view function that renders the profile 
+    view function that renders the profile 
     '''
     user_form=request.user
     x=request.user.gangroups.all()
@@ -110,7 +111,7 @@ def profile(request):
 
 def login_view(request):
     '''
-        view function that renders login_view  
+    view function that renders login_view  
     '''
     if request.method=='POST':
         form = AuthenticationForm(data=request.POST)
@@ -131,7 +132,7 @@ def login_view(request):
 
 def logout_view(request):
     '''
-        view function that renders logout_view  
+    view function that renders logout_view  
     '''
     logout(request)
     return redirect('/')
@@ -139,24 +140,25 @@ def logout_view(request):
 
 def support_page(request):
     '''
-        view function that renders support_page  
+    view function that renders support_page  
     '''
     form = supportMailForm()
     if request.method == 'POST':
         form = supportMailForm(request.POST)
         if form.is_valid:
-            first_Name = request.user.first_name
-            last_Name = request.user.last_name
+            first_name = request.user.first_name
+            last_name = request.user.last_name
             group= request.user.gangroups.all()
             subject = request.POST['subject']
             message = request.POST['message']
             if request.user.is_manager:
                 recipient = ['admin_gan@gmail.com']
             elif request.user.is_parent:
-                group_Manager = User.objects.filter(is_manager=True,).filter(gangroups=group[0])
-                recipient = [str(group_Manager[0].email)] #TODO get specific manager mail for group
-            send_mail(subject,message,from_email=first_Name+" "+last_Name+" from group: "+str(group[0]),recipient_list=recipient)
-            return render(request,"../templates/support_page.html",{"first_name":first_Name})
+                group_manager = User.objects.filter(is_manager=True,).filter(gangroups=group[0])
+
+                recipient = [str(group_manager[0].email)] 
+            send_mail(subject,message,from_email=first_name+" "+last_name+" from group: "+str(group[0]),recipient_list=recipient)
+            return render(request,"../templates/support_page.html",{"first_name":first_name})
     else:
         return render(request,"../templates/support_page.html",{"form":form})
 

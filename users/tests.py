@@ -1,3 +1,4 @@
+from django.db.models import manager
 from django.test import TestCase, Client, tag
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model,authenticate
@@ -5,7 +6,9 @@ from .models import contact_model,User,Manager,Parent,Video,Gallery
 from .apps import UsersConfig
 from .forms import ManagerForm,Gallery_form,Video_form
 from django.core.files.uploadedfile import SimpleUploadedFile
-
+from events.models import Event
+from activities.models import Activity
+from datetime import datetime
 
 @tag('unit-test')
 class VideoModelTestModel(TestCase):
@@ -212,10 +215,7 @@ class ViewsTest(TestCase):
         def setUp(self):
             self.user = get_user_model().objects.create_user(username='test', password='12test12', email='test@example.com')
             self.user.save()
-        def test_view_url_register(self):
-            self.client.force_login(self.user)
-            response = self.client.get(reverse('register'))
-            self.assertEqual(response.status_code, 200)
+       
         def test_view_url_parent_register(self):
             self.client.force_login(self.user)
             response = self.client.get(reverse('parent_register'))
@@ -264,3 +264,42 @@ class ViewsTest(TestCase):
         #     self.client.force_login(self.user)
         #     response = self.client.get(reverse('gallery/delete_pic/<int:pk>/'))
         #     self.assertEqual(response.status_code, 200)
+
+
+@tag('unit-test')
+class activityTest(TestCase):
+    
+    def setUp(self):
+        user = User.objects.create(username='testManagerUserName',is_admin=False,is_manager=True,is_parent=False,
+                                      first_name = 'testManager',last_name="testManagerLastName")
+        manager = Manager.objects.create(user=user)
+        self.activity = Activity.objects.create(auther=manager,title='testTitle',text='testText')
+        self.activity.save()
+        self.activity.publish()
+       
+
+    def tearDown(self):
+        self.activity.delete()
+
+    def test_exists(self):
+        obj = Activity.objects.get(title='testTitle')
+        self.assertTrue(obj is not None)
+
+@tag('unit-test')
+class EventTest(TestCase):
+    
+    def setUp(self):
+        user = User.objects.create(username='testManagerUserName',is_admin=False,is_manager=True,is_parent=False,
+                                      first_name = 'testManager',last_name="testManagerLastName")
+        manager = Manager.objects.create(user=user)
+        self.event = Event.objects.create(auther=manager,name='testTitle',date=datetime.now() ,discription='testdiscription')
+        self.event.save()
+        self.event.publish()
+       
+
+    def tearDown(self):
+        self.event.delete()
+
+    def test_exists(self):
+        obj = Event.objects.get(name='testTitle')
+        self.assertTrue(obj is not None)
