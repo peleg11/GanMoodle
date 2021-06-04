@@ -1,0 +1,4 @@
+[run]
+branch = True
+omit =
+    .local/lib/python3.8/site-packages
