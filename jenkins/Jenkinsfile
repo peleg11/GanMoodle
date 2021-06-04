@@ -72,7 +72,7 @@ pipeline {
               steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                       dir("./") {
-                          sh 'python -m  pylint GanMoodle users'
+                          sh 'python -m pylint --fail-under=8 GanMoodle users'
                       }
 
                 }
