@@ -1,8 +1,10 @@
 from django.contrib.auth import login, logout,authenticate
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from django.views.generic import CreateView
 from django.core.mail import send_mail
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.shortcuts import render, redirect
 
 from .forms import ManagerForm, ParentForm,EditProfileForm,contactForm,supportMailForm, Video_form,Gallery_form
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
@@ -10,9 +12,15 @@ from .models import GanGroup, User,contact_model, Video,Gallery
 
 # Create your views here.
 def index (request):
+    '''
+        view function that renders the hompage 
+    '''
     return render(request,'homepage.html',context={})
 
 def regpage (request):
+    '''
+        view function that renders the regpage 
+    '''
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
@@ -23,13 +31,12 @@ def regpage (request):
     return render(request,'regpage.html',{'form':form})
 
 
-from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+
 
 def change_password(request):
+    '''
+        view function that renders the change_password 
+    '''
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
@@ -46,10 +53,16 @@ def change_password(request):
     })
 
 def register(request):
+    '''
+        view function that renders the register 
+    '''
     return render(request, '../templates/register.html')
 
 
 def manager_register (request):
+    '''
+        view function that renders the manager_register 
+    '''
     if request.method == 'POST':
         form = ManagerForm(request.POST, request.FILES)
         if form.is_valid():
@@ -60,6 +73,9 @@ def manager_register (request):
     return render(request,'../templates/manager_register.html',{'form':form})
 
 def parent_register (request):
+    '''
+        view function that renders the parent_register 
+    '''
     if request.method == 'POST':
         form = ParentForm(request.POST, request.FILES)
         if form.is_valid():
@@ -70,29 +86,22 @@ def parent_register (request):
     return render(request,'../templates/parent_register.html',{'form':form})
 
 def edit_profile (request):
-        if request.method == 'POST':
-            form = EditProfileForm(request.POST, instance=request.user)
-            if form.is_valid():
-                form.save()
-                return redirect('profile')
-        else :
-            form=EditProfileForm(request.POST,instance=request.user)
-            return render(request,'edit_profile.html',{'form':form})
-
-
-'''class manager_register(CreateView):
-    model = User
-    form_class = ManagerForm
-    template_name = '../templates/manager_register.html'
-
-    def form_valid(self, form):
-        user = form.save()
-        #login(self.request, user)
-        return redirect('homepage')
-'''
-
+    '''
+        view function that renders the edit_profile 
+    '''
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else :
+        form=EditProfileForm(request.POST,instance=request.user)
+        return render(request,'edit_profile.html',{'form':form})
 
 def profile(request):
+    '''
+        view function that renders the profile 
+    '''
     user_form=request.user
     x=request.user.gangroups.all()
     return render(request,"../templates/profile.html", context={'user':user_form,'gangroups':x})
@@ -100,6 +109,9 @@ def profile(request):
 
 
 def login_view(request):
+    '''
+        view function that renders login_view  
+    '''
     if request.method=='POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
@@ -118,11 +130,17 @@ def login_view(request):
     context={'form':AuthenticationForm()})
 
 def logout_view(request):
+    '''
+        view function that renders logout_view  
+    '''
     logout(request)
     return redirect('/')
 
 
 def support_page(request):
+    '''
+        view function that renders support_page  
+    '''
     form = supportMailForm()
     if request.method == 'POST':
         form = supportMailForm(request.POST)
@@ -138,24 +156,29 @@ def support_page(request):
                 groupManager = User.objects.filter(is_manager=True,).filter(gangroups=group[0])
 
                 recipient = [str(groupManager[0].email)] #TODO get specific manager mail for group
-            send_mail(subject,message,from_email=firstName+" "+lastName+" from group: "+str(group[0]),
-                        recipient_list=recipient)
+            send_mail(subject,message,from_email=firstName+" "+lastName+" from group: "+str(group[0]),recipient_list=recipient)
             return render(request,"../templates/support_page.html",{"first_name":firstName})
     else:
         return render(request,"../templates/support_page.html",{"form":form})
 
 def contact_info_view(request):
+    '''
+    view function that renders contact_info_view  
+    '''
     data = contact_model.objects.all()
     if request.method == 'POST':
         form = contactForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('contact')
-        else :
-            form=contactForm(request.POST)
-        return render(request,'contact.html',{'form':form,'data':data})
+    else :
+        form=contactForm(request.POST)
+    return render(request,'contact.html',{'form':form,'data':data})
 
 def delete_contact_view(request,pk):
+    '''
+    view function that renders delete_contact_view  
+    '''
     obj = contact_model.objects.get(pk=pk)
     if request.method == 'POST':
         obj.delete()
@@ -163,6 +186,9 @@ def delete_contact_view(request,pk):
     return render(request,'delete_contact.html',context={'obj':obj})
 
 def delete_pic(request,pk):
+    '''
+    view function that renders delete_pic  
+    '''
     obj = Gallery.objects.get(pk=pk)
     if request.method == 'POST':
         obj.delete()
@@ -171,6 +197,9 @@ def delete_pic(request,pk):
 
 
 def video_index(request):
+    '''
+    view function that renders video_index  
+    '''
     all_video=Video.objects.all()
     gangrp=request.user.gangroups.all()[0]
     if request.method == "POST":
@@ -184,6 +213,9 @@ def video_index(request):
     return render(request,'media.html',{"form":form,"all":all_video, "grp":str(gangrp)})
 
 def gallery_index(request):
+    '''
+    view function that renders gallery_index  
+    '''
     all_pic=Gallery.objects.all()
     gangrp=request.user.gangroups.all()[0]
     if request.method == "POST":
@@ -197,12 +229,17 @@ def gallery_index(request):
     return render(request,'gallery.html',{"form":form,"all":all_pic, "grp":str(gangrp)})
 
 def view_my_group(request):
-
+    '''
+    view function that renders view_my_group  
+    '''
     group= request.user.gangroups.all()
     parents = User.objects.filter(is_parent=True).filter(gangroups=group[0])
     return render(request,'my_group.html',{ "parents":parents})
 
 def delete_parent(request,pk):
+    '''
+    view function that renders delete_parent  
+    '''
     obj = User.objects.get(pk=pk)
     if request.method == 'POST':
         obj.delete()
