@@ -3,4 +3,5 @@ branch = True
 
 omit =
     # omit anything in a .local directory anywhere
-    */.local/* 
+    */.local/*
+    */migrations/*
