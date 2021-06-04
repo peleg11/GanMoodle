@@ -5,3 +5,13 @@ omit =
     # omit anything in a .local directory anywhere
     */.local/*
     */migrations/*
+    */activities/__init__.py/*
+    */activities/tests.py/*
+    */events/__init__.py/*
+    */events/tests.py/*
+    */ganMoodle_project/__init__.py/*
+    */ganMoodle_project/settings.py/*
+    */manage.py/*
+    */users/__init__.py/*
+    */users/tests.py/*
+
