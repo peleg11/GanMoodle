@@ -1,3 +1,6 @@
 [run]
 branch = True
-omit = activities/admin.py
+
+omit =
+    # omit anything in a .local directory anywhere
+    */.local/* 
