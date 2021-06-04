@@ -81,12 +81,12 @@ pipeline {
     }
     post {
         failure{
-          mail to: 'almog10080@gmail.com',
+          mail to: 'atias.shmulik@gmail.com',
           subject: "Failed: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']",
           body: "Failed: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']: Check console output at '${env.BUILD_URL}' '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']"
         }
         success{
-          mail to: 'almog10080@gmail.com',
+          mail to: 'atias.shmulik@gmail.com',
           subject: "SUCCESS: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']",
           body: "SUCCESS: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']: Check console output at '${env.BUILD_URL}' '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']"
         }
