@@ -210,12 +210,12 @@ class contactTest(TestCase):
         self.assertTrue(self.contact is not None)
 
 
-@tag('unit-test')
+@tag('integration-test')
 class ViewsTest(TestCase):
         def setUp(self):
             self.user = get_user_model().objects.create_user(username='test', password='12test12', email='test@example.com')
             self.user.save()
-       
+
         def test_view_url_parent_register(self):
             self.client.force_login(self.user)
             response = self.client.get(reverse('parent_register'))
@@ -268,7 +268,7 @@ class ViewsTest(TestCase):
 
 @tag('unit-test')
 class activityTest(TestCase):
-    
+
     def setUp(self):
         user = User.objects.create(username='testManagerUserName',is_admin=False,is_manager=True,is_parent=False,
                                       first_name = 'testManager',last_name="testManagerLastName")
@@ -276,7 +276,7 @@ class activityTest(TestCase):
         self.activity = Activity.objects.create(auther=manager,title='testTitle',text='testText')
         self.activity.save()
         self.activity.publish()
-       
+
 
     def tearDown(self):
         self.activity.delete()
@@ -287,7 +287,7 @@ class activityTest(TestCase):
 
 @tag('unit-test')
 class EventTest(TestCase):
-    
+
     def setUp(self):
         user = User.objects.create(username='testManagerUserName',is_admin=False,is_manager=True,is_parent=False,
                                       first_name = 'testManager',last_name="testManagerLastName")
@@ -295,7 +295,7 @@ class EventTest(TestCase):
         self.event = Event.objects.create(auther=manager,name='testTitle',date=datetime.now() ,discription='testdiscription')
         self.event.save()
         self.event.publish()
-       
+
 
     def tearDown(self):
         self.event.delete()
