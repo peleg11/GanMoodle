@@ -60,7 +60,7 @@ pipeline {
               steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     dir("./") {
-                       sh 'python -m coverage xml -o ./Test/coverage.xml'
+                       sh 'python -m coverage xml -o ./Tests/coverage.xml'
                        sh 'python -m coverage report --fail-under=45'
 
                     }
